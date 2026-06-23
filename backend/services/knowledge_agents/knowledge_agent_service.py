@@ -1,5 +1,6 @@
 import uuid
 import time
+import asyncio
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 
@@ -50,7 +51,7 @@ class KnowledgeAgentService:
         except Exception:
             self._storage_backend = "memory"
 
-    def create_agent(self, user_id: str, data: AgentCreate) -> KnowledgeAgent:
+    async def create_agent(self, user_id: str, data: AgentCreate) -> KnowledgeAgent:
         self._init_storage()
         collection_name = f"agent_{uuid.uuid4().hex[:12]}"
         agent = KnowledgeAgent(
@@ -66,7 +67,7 @@ class KnowledgeAgentService:
             for src_data in data.sources:
                 source = self.add_source(agent.id, src_data)
                 if source:
-                    self.ingest_source(agent.id, source.id)
+                    await self.ingest_source(agent.id, source.id)
         return agent
 
     def get_agent(self, agent_id: str) -> Optional[KnowledgeAgent]:
@@ -132,7 +133,7 @@ class KnowledgeAgentService:
             return True
         return False
 
-    def ingest_source(self, agent_id: str, source_id: str) -> IngestionResult:
+    async def ingest_source(self, agent_id: str, source_id: str) -> IngestionResult:
         agent = self._agents_store.get(agent_id)
         source = self._sources_store.get(source_id)
         if not agent or not source:
@@ -154,15 +155,13 @@ class KnowledgeAgentService:
                     raise ValueError("Spreadsheet source requires a file path")
                 result = self.spreadsheet_ingestion.ingest(source.path, source)
             elif source.type == SourceType.WEBSITE:
-                import asyncio
                 if source.url:
-                    result = asyncio.run(self.web_ingestion.ingest(source.url, source=source))
+                    result = await self.web_ingestion.ingest(source.url, source=source)
                 else:
                     raise ValueError("Website source requires a URL")
             elif source.type == SourceType.REPOSITORY:
-                import asyncio
                 if source.url:
-                    result = asyncio.run(self.repository_ingestion.ingest(source.url, source=source))
+                    result = await self.repository_ingestion.ingest(source.url, source=source)
                 elif source.path:
                     result = self.repository_ingestion.ingest_local(source.path, source)
                 else:

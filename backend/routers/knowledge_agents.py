@@ -17,7 +17,7 @@ async def create_knowledge_agent(
     data: AgentCreate,
     current_user: dict = Depends(get_current_user),
 ):
-    agent = knowledge_agent_service.create_agent(current_user["sub"], data)
+    agent = await knowledge_agent_service.create_agent(current_user["sub"], data)
     return agent
 
 
@@ -92,12 +92,12 @@ async def delete_source(
 
 
 @router.post("/agents/{agent_id}/sources/{source_id}/ingest", response_model=IngestionResult)
-async def ingest_source(
+async def ingest_source_endpoint(
     agent_id: str,
     source_id: str,
     current_user: dict = Depends(get_current_user),
 ):
-    result = knowledge_agent_service.ingest_source(agent_id, source_id)
+    result = await knowledge_agent_service.ingest_source(agent_id, source_id)
     if result.status == "failed":
         raise HTTPException(status_code=400, detail=result.error or "Ingestion failed")
     return result
@@ -135,7 +135,7 @@ async def upload_source_file(
     source = knowledge_agent_service.add_source(agent_id, source_data)
     if not source:
         raise HTTPException(status_code=404, detail="Knowledge Agent not found")
-    result = knowledge_agent_service.ingest_source(agent_id, source.id)
+    result = await knowledge_agent_service.ingest_source(agent_id, source.id)
     return {"source": source, "ingestion": result}
 
 

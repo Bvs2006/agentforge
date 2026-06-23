@@ -4,7 +4,7 @@ import { useStore } from '../hooks/useStore'
 import { agentAPI } from '../services/api'
 import {
   ArrowLeft, Settings, User, Bot, Send, Loader2, Paperclip, X, MessageSquare, Settings2,
-  Terminal, FileText,
+  Terminal, FileText, Maximize2, Minimize2,
 } from 'lucide-react'
 
 export default function Wizard() {
@@ -15,6 +15,7 @@ export default function Wizard() {
   } = useStore()
 
   const [showSettings, setShowSettings] = useState(false)
+  const [viewMode, setViewMode] = useState('editor')
   const [chatMessages, setChatMessages] = useState([])
   const [chatInput, setChatInput] = useState('')
   const [chatLoading, setChatLoading] = useState(false)
@@ -218,7 +219,29 @@ export default function Wizard() {
           </button>
           <h1 className="text-xl font-bold">Creator Studio</h1>
         </div>
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center rounded-full bg-black p-0.5 text-sm font-bold border border-zinc-800">
+          <button
+            onClick={() => setViewMode('editor')}
+            className={`rounded-full px-4 py-1.5 transition ${viewMode === 'editor' ? 'border border-indigo-400 bg-indigo-500/20 text-white' : 'text-zinc-400 hover:text-white'}`}
+          >
+            Editor
+          </button>
+          <button
+            onClick={() => setViewMode('app')}
+            className={`rounded-full px-4 py-1.5 transition ${viewMode === 'app' ? 'border border-indigo-400 bg-indigo-500/20 text-white' : 'text-zinc-400 hover:text-white'}`}
+          >
+            App
+          </button>
+        </div>
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => setViewMode(viewMode === 'app' ? 'editor' : 'app')}
+            className="md:hidden flex items-center gap-1.5 rounded-full bg-black px-3 py-1.5 text-xs border border-zinc-800 text-zinc-300 hover:text-white"
+            title={viewMode === 'app' ? 'Show sidebar' : 'Full screen chat'}
+          >
+            {viewMode === 'app' ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+            {viewMode === 'app' ? 'Sidebar' : 'Fullscreen'}
+          </button>
           <button onClick={() => setShowSettings(true)} className="text-zinc-300 hover:text-white" title="Settings">
             <Settings size={22} />
           </button>
@@ -230,33 +253,35 @@ export default function Wizard() {
 
       {/* Main: Left config + Right chat */}
       <div className="flex min-h-0 flex-1 flex-col xl:flex-row bg-[#0e1014]">
-        {/* Left panel: Config editor */}
-        <aside className="w-full xl:w-80 border-b xl:border-b-0 xl:border-r border-zinc-800 bg-[#161920] p-5 space-y-5 flex flex-col overflow-y-auto">
-          <div>
-            <h2 className="text-sm font-bold text-white flex items-center gap-1.5">Agent Config</h2>
-          </div>
-          <div className="space-y-4">
+        {/* Left panel: Config editor (hidden in App mode) */}
+        {viewMode === 'editor' && (
+          <aside className="w-full xl:w-80 border-b xl:border-b-0 xl:border-r border-zinc-800 bg-[#161920] p-5 space-y-5 flex flex-col overflow-y-auto">
             <div>
-              <label className="block text-xs font-semibold text-zinc-400 mb-1.5">Agent Name</label>
-              <input
-                value={agentConfig.name}
-                onChange={(e) => setAgentConfig({ ...agentConfig, name: e.target.value })}
-                placeholder="e.g. Finance Coordinator"
-                className="input"
-              />
+              <h2 className="text-sm font-bold text-white flex items-center gap-1.5">Agent Config</h2>
             </div>
-            <div>
-              <label className="block text-xs font-semibold text-zinc-400 mb-1.5">Instructions</label>
-              <textarea
-                value={agentConfig.description || ''}
-                onChange={(e) => setAgentConfig({ ...agentConfig, description: e.target.value })}
-                placeholder="Describe details, roles, rules, and outcomes..."
-                rows={6}
-                className="input resize-none"
-              />
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-zinc-400 mb-1.5">Agent Name</label>
+                <input
+                  value={agentConfig.name}
+                  onChange={(e) => setAgentConfig({ ...agentConfig, name: e.target.value })}
+                  placeholder="e.g. Finance Coordinator"
+                  className="input"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-zinc-400 mb-1.5">Instructions</label>
+                <textarea
+                  value={agentConfig.description || ''}
+                  onChange={(e) => setAgentConfig({ ...agentConfig, description: e.target.value })}
+                  placeholder="Describe details, roles, rules, and outcomes..."
+                  rows={6}
+                  className="input resize-none"
+                />
+              </div>
             </div>
-          </div>
-        </aside>
+          </aside>
+        )}
 
         {/* Right panel: Chat */}
         <section className="flex-1 flex flex-col min-w-0 bg-[#0b0c10] relative">

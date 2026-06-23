@@ -51,10 +51,10 @@ const STEP_COMPONENTS = [
 ]
 
 const toneStyles = {
-  input: 'border-lime-200/40 bg-gray-800 text-lime-100',
-  process: 'border-sky-300/25 bg-gray-800 text-sky-100',
-  audio: 'border-violet-300/25 bg-gray-800 text-violet-100',
-  output: 'border-emerald-300/25 bg-gray-800 text-emerald-100',
+  input: 'border-violet-500/30 bg-gray-800/80 text-violet-200',
+  process: 'border-blue-500/25 bg-gray-800/80 text-blue-200',
+  audio: 'border-amber-500/25 bg-gray-800/80 text-amber-200',
+  output: 'border-emerald-500/25 bg-gray-800/80 text-emerald-200',
 }
 
 function truncate(value, fallback) {
@@ -167,7 +167,7 @@ function CanvasNode({ node, active, done, onClick }) {
     ? 'bg-lime-200 text-gray-950'
     : node.tone === 'output'
       ? 'bg-emerald-200 text-gray-950'
-      : 'bg-blue-100 text-gray-950'
+      : 'bg-violet-100 text-gray-950'
 
   return (
     <button
@@ -175,7 +175,7 @@ function CanvasNode({ node, active, done, onClick }) {
       onClick={onClick}
       className={`absolute w-44 rounded-md border text-left shadow-2xl shadow-black/30 transition hover:-translate-y-0.5 ${
         toneStyles[node.tone]
-      } ${active ? 'ring-2 ring-sky-300' : ''} ${done ? 'opacity-100' : 'opacity-85'}`}
+      } ${active ? 'ring-2 ring-violet-500/40' : ''} ${done ? 'opacity-100' : 'opacity-85'}`}
       style={{ left: `${node.x}%`, top: `${node.y}%` }}
     >
       <div className={`flex h-7 items-center gap-2 rounded-t-md px-2 text-[10px] font-semibold ${headerClass}`}>
@@ -198,7 +198,7 @@ function nodeCenter(nodes, id) {
 
 function WorkflowCanvas({ nodes, currentStep, setStep, zoomScale, setZoomScale, addNotification }) {
   return (
-    <div className="relative h-full min-h-[560px] overflow-hidden bg-[#171717]">
+    <div className="relative h-full min-h-[560px] overflow-hidden bg-[#0f0f11]">
       <div 
         className="absolute inset-0 transition-transform duration-200"
         style={{ transform: `scale(${zoomScale})`, transformOrigin: 'center center' }}
@@ -281,9 +281,9 @@ function MakerPrompt({ value, setValue, onGenerate }) {
   ]
 
   return (
-    <div className="mb-4 rounded-2xl border border-sky-100/15 bg-zinc-950/55 p-4 shadow-2xl">
-      <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-sky-100">
-        <WandSparkles size={16} className="text-sky-300" />
+    <div className="mb-4 rounded-2xl border border-zinc-800/30 bg-zinc-950/55 p-4 shadow-2xl">
+      <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-zinc-200">
+        <WandSparkles size={16} className="text-violet-400" />
         Build with AI Assistant
       </div>
       <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-zinc-900 px-4 py-3">
@@ -306,7 +306,7 @@ function MakerPrompt({ value, setValue, onGenerate }) {
           <button
             key={example}
             onClick={() => setValue(example)}
-            className="shrink-0 rounded-full border border-sky-100/15 bg-sky-950/40 px-3 py-1.5 text-xs text-sky-200 transition hover:bg-sky-900/60"
+            className="shrink-0 rounded-full border border-zinc-800/30 bg-violet-950/30 px-3 py-1.5 text-xs text-zinc-300 transition hover:bg-violet-900/40"
           >
             {example}
           </button>
@@ -320,14 +320,14 @@ function PreviewPanel({ currentStep, setStep, makerPrompt, setMakerPrompt, onGen
   const StepComponent = STEP_COMPONENTS[currentStep] || StepDescribeTask
 
   return (
-    <aside className="flex min-h-0 w-full flex-col bg-[#075a73] text-sky-100 xl:w-[34rem] 2xl:w-[42rem]">
-      <div className="flex h-[70px] items-center gap-2 overflow-x-auto border-b border-sky-200/20 px-6">
+    <aside className="flex min-h-0 w-full flex-col bg-[#121214] text-zinc-200 xl:w-[34rem] 2xl:w-[42rem]">
+      <div className="flex h-[70px] items-center gap-2 overflow-x-auto border-b border-zinc-800/20 px-6">
         {TABS.map((tab, index) => (
           <button
             key={tab}
             onClick={() => setStep(index)}
             className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-              index === currentStep ? 'bg-zinc-800/80 text-sky-200' : 'text-sky-950/70 hover:text-sky-100'
+              index === currentStep ? 'bg-zinc-800/80 text-zinc-300' : 'text-zinc-600/70 hover:text-zinc-200'
             }`}
           >
             {tab}
@@ -335,17 +335,17 @@ function PreviewPanel({ currentStep, setStep, makerPrompt, setMakerPrompt, onGen
         ))}
       </div>
 
-      <div className="flex h-[68px] items-center justify-between border-b border-sky-200/20 px-6">
-        <Menu size={28} className="text-sky-300/80" />
+      <div className="flex h-[68px] items-center justify-between border-b border-zinc-800/20 px-6">
+        <Menu size={28} className="text-violet-400/80" />
         <div className="h-1.5 w-48 rounded-full bg-zinc-950/70">
-          <div className="h-full w-1/3 rounded-full bg-sky-200" />
+          <div className="h-full w-1/3 rounded-full bg-violet-400" />
         </div>
-        <RotateCcw size={30} className="text-sky-300/70" />
+        <RotateCcw size={30} className="text-violet-400/70" />
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto px-6 py-6">
         <MakerPrompt value={makerPrompt} setValue={setMakerPrompt} onGenerate={onGenerate} />
-        <div className="rounded-2xl border border-sky-100/15 bg-zinc-950/45 p-5 shadow-2xl backdrop-blur">
+        <div className="rounded-2xl border border-zinc-800/30 bg-zinc-950/45 p-5 shadow-2xl backdrop-blur">
           <StepComponent />
         </div>
       </div>
@@ -591,13 +591,13 @@ export default function Wizard() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#171717] text-white">
+    <div className="flex h-screen flex-col overflow-hidden bg-[#0f0f11] text-white">
       {/* Settings Modal Dialog */}
       {showSettings && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center">
           <div className="card w-96 p-6 space-y-4 border border-zinc-800 bg-zinc-950 text-white shadow-2xl">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold flex items-center gap-1.5"><Settings2 size={16} className="text-ibm-blue" /> Execution Variables</h3>
+              <h3 className="text-sm font-semibold flex items-center gap-1.5"><Settings2 size={16} className="text-violet-400" /> Execution Variables</h3>
               <button onClick={() => setShowSettings(false)} className="text-zinc-500 hover:text-white"><X size={16} /></button>
             </div>
             <div className="space-y-3 text-xs">
@@ -622,7 +622,7 @@ export default function Wizard() {
                     ...agentConfig,
                     parameters: { ...(agentConfig.parameters || {}), temperature: Number(e.target.value) }
                   })}
-                  className="w-full accent-ibm-blue" 
+                  className="w-full accent-violet-500" 
                 />
                 <span className="text-zinc-500 mt-1 block text-right">val: {agentConfig.parameters?.temperature || 0.2}</span>
               </div>
@@ -643,7 +643,7 @@ export default function Wizard() {
       )}
 
       {/* Header */}
-      <header className="flex h-12 shrink-0 items-center justify-between bg-[#242424] px-4 border-b border-zinc-800">
+      <header className="flex h-12 shrink-0 items-center justify-between bg-[#0f0f11] px-4 border-b border-zinc-800">
         <div className="flex min-w-0 items-center gap-4">
           <button onClick={() => navigate('/app/dashboard')} className="text-zinc-200 hover:text-white" title="Back">
             <ArrowLeft size={22} />
@@ -696,7 +696,7 @@ export default function Wizard() {
       {viewMode === 'editor' ? (
         /* STANDARD EDITOR VIEW */
         <div className="flex min-h-0 flex-1 flex-col xl:flex-row">
-          <section className="relative min-h-[55vh] flex-1 border-b border-blue-700/70 xl:border-b-0 xl:border-r xl:border-zinc-900">
+          <section className="relative min-h-[55vh] flex-1 border-b border-zinc-800/60 xl:border-b-0 xl:border-r xl:border-zinc-900">
             <WorkflowCanvas 
               nodes={nodes} 
               currentStep={currentStep} 
@@ -709,7 +709,7 @@ export default function Wizard() {
               <Workflow size={14} />
               AI Core Engine
             </div>
-            <div className="absolute bottom-0 left-0 h-px w-full bg-blue-600" />
+            <div className="absolute bottom-0 left-0 h-px w-full bg-violet-600/30" />
           </section>
 
           <PreviewPanel
@@ -722,12 +722,12 @@ export default function Wizard() {
         </div>
       ) : (
         /* LIVE APP VIEW: LEFT CONFIG EDITOR & RIGHT PREMIUM PLAYGROUND CHAT */
-        <div className="flex min-h-0 flex-1 flex-col xl:flex-row bg-[#0e1014]">
+        <div className="flex min-h-0 flex-1 flex-col xl:flex-row bg-[#0f0f11]">
           
           {/* Left panel: Live config editor */}
-          <aside className="w-full xl:w-96 border-b xl:border-b-0 xl:border-r border-zinc-800 bg-[#161920] p-6 space-y-6 flex flex-col overflow-y-auto">
+          <aside className="w-full xl:w-96 border-b xl:border-b-0 xl:border-r border-zinc-800 bg-[#121214] p-6 space-y-6 flex flex-col overflow-y-auto">
             <div>
-              <h2 className="text-sm font-bold text-white flex items-center gap-1.5"><Sliders size={16} className="text-ibm-blue" /> Draft Config Editor</h2>
+              <h2 className="text-sm font-bold text-white flex items-center gap-1.5"><Sliders size={16} className="text-violet-400" /> Draft Config Editor</h2>
               <p className="text-xs text-zinc-400 mt-1">Refine instructions in real-time. The chatbot on the right runs the draft config instantly.</p>
             </div>
 
@@ -770,7 +770,7 @@ export default function Wizard() {
                         }}
                         className={`text-left rounded-lg border px-3 py-2 text-xs font-medium transition ${
                           active
-                            ? 'border-ibm-blue bg-ibm-blue/10 text-white'
+                            ? 'border-violet-500 bg-violet-600/10 text-white'
                             : 'border-zinc-800 bg-zinc-950/40 text-zinc-400 hover:border-zinc-700'
                         }`}
                       >
@@ -796,11 +796,11 @@ export default function Wizard() {
           </aside>
 
           {/* Right panel: Premium Playground Chat */}
-          <section className="flex-1 flex flex-col min-w-0 bg-[#0b0c10] relative">
+          <section className="flex-1 flex flex-col min-w-0 bg-[#0f0f11] relative">
             <header className="h-[52px] border-b border-zinc-900 px-6 flex items-center justify-between bg-zinc-950/80 backdrop-blur z-10">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <Bot className="text-ibm-blue" size={20} />
+                  <Bot className="text-violet-400" size={20} />
                   <span className="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-green-500 border border-zinc-950" />
                 </div>
                 <div>
@@ -820,7 +820,7 @@ export default function Wizard() {
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
               {chatMessages.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center max-w-sm mx-auto">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center mb-3 text-ibm-blue">
+                  <div className="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center mb-3 text-violet-400">
                     <MessageSquare size={18} />
                   </div>
                   <h2 className="text-xs font-semibold text-zinc-300">Playground session initialized</h2>
@@ -836,13 +836,13 @@ export default function Wizard() {
                       <div key={index} className={`flex items-start gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
                         {!isUser && (
                           <div className="w-7 h-7 rounded-lg bg-zinc-950 border border-zinc-800 flex items-center justify-center shrink-0">
-                            <Bot size={14} className="text-ibm-blue" />
+                            <Bot size={14} className="text-violet-400" />
                           </div>
                         )}
                         <div className="max-w-[75%] min-w-0">
                           <div className={`rounded-xl px-4 py-2.5 text-xs leading-relaxed border ${
                             isUser
-                              ? 'bg-ibm-blue border-ibm-blue/40 text-white rounded-tr-none'
+                              ? 'bg-violet-600 border-violet-500/40 text-white rounded-tr-none'
                               : 'bg-zinc-900/60 border-zinc-800/60 text-zinc-200 rounded-tl-none'
                           }`}>
                             <div className="whitespace-pre-wrap break-words">{msg.content}</div>
@@ -852,8 +852,8 @@ export default function Wizard() {
                           </span>
                         </div>
                         {isUser && (
-                          <div className="w-7 h-7 rounded-lg bg-ibm-blue/15 border border-ibm-blue/25 flex items-center justify-center shrink-0">
-                            <User size={14} className="text-ibm-blue" />
+                          <div className="w-7 h-7 rounded-lg bg-violet-600/15 border border-violet-500/25 flex items-center justify-center shrink-0">
+                            <User size={14} className="text-violet-400" />
                           </div>
                         )}
                       </div>
@@ -867,7 +867,7 @@ export default function Wizard() {
                 <div className="max-w-3xl mx-auto pl-10 space-y-3">
                   <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 max-w-sm shadow-xl animate-pulse">
                     <div className="flex items-center gap-1.5 text-[10px] font-semibold text-zinc-300 mb-2">
-                      <Terminal size={12} className="text-ibm-blue" />
+                      <Terminal size={12} className="text-violet-400" />
                       <span>Pipeline execution log</span>
                     </div>
                     <div className="space-y-1.5">
@@ -876,7 +876,7 @@ export default function Wizard() {
                           <span className="text-zinc-400">{step.step}. {step.name}</span>
                           <span className={`badge border text-[8px] ${
                             step.status === 'done' ? 'text-green-400 bg-green-500/10 border-green-500/20' :
-                            step.status === 'active' ? 'text-ibm-blue bg-ibm-blue/10 border-ibm-blue/20' :
+                            step.status === 'active' ? 'text-violet-400 bg-violet-600/10 border-violet-500/20' :
                             'text-zinc-600 border-zinc-850 bg-zinc-950'
                           }`}>
                             {step.status}
@@ -905,18 +905,18 @@ export default function Wizard() {
               <div className="max-w-3xl mx-auto">
                 {/* DoclingParsed indicator */}
                 {doclingParsed && (
-                  <div className="mb-2 flex items-center justify-between rounded-lg border border-ibm-teal/30 bg-ibm-teal/5 px-3 py-1 text-xs text-ibm-teal">
+                  <div className="mb-2 flex items-center justify-between rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-400">
                     <span className="flex items-center gap-1.5">
                       <FileText size={12} /> Docling attached: {doclingParsed.filename} (+{doclingParsed.text?.length} chars)
                     </span>
-                    <button onClick={() => setDoclingParsed(null)} className="text-ibm-teal hover:text-teal-300">
+                    <button onClick={() => setDoclingParsed(null)} className="text-emerald-400 hover:text-teal-300">
                       <X size={12} />
                     </button>
                   </div>
                 )}
 
                 {/* Input block */}
-                <div className="relative flex items-center rounded-xl border border-zinc-800 bg-[#161821] p-1 pr-2 focus-within:ring-1 focus-within:ring-ibm-blue focus-within:border-transparent">
+                <div className="relative flex items-center rounded-xl border border-zinc-800 bg-[#18181b] p-1 pr-2 focus-within:ring-1 focus-within:ring-violet-500/50 focus-within:border-transparent">
                   <button
                     onClick={() => fileInputRef.current?.click()}
                     disabled={chatLoading || doclingUploading}
@@ -924,7 +924,7 @@ export default function Wizard() {
                     title="Process document via Docling"
                   >
                     {doclingUploading ? (
-                      <Loader2 className="animate-spin text-ibm-teal" size={16} />
+                      <Loader2 className="animate-spin text-emerald-400" size={16} />
                     ) : (
                       <Paperclip size={16} />
                     )}
@@ -946,7 +946,7 @@ export default function Wizard() {
                     disabled={chatLoading || (!chatInput.trim() && !doclingParsed)}
                     className={`flex h-7 w-7 items-center justify-center rounded-lg transition ${
                       chatInput.trim() || doclingParsed
-                        ? 'bg-ibm-blue hover:bg-blue-600 text-white'
+                        ? 'bg-violet-600 hover:bg-violet-500 text-white'
                         : 'bg-zinc-800 text-zinc-600 cursor-not-allowed'
                     }`}
                   >

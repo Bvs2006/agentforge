@@ -409,8 +409,43 @@ export default function Wizard() {
           </aside>
         </div>
       ) : (
-        /* App: Full-screen chat */
+        /* App: Config left + Chat right */
         <div className="flex min-h-0 flex-1">
+          {/* Left: Config sidebar */}
+          <aside className="w-80 shrink-0 border-r border-zinc-800/60 bg-[#121214] overflow-y-auto">
+            <div className="p-5 space-y-5">
+              <h2 className="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Agent Config</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-medium text-zinc-500 mb-1.5">Name</label>
+                  <input
+                    value={agentConfig.name}
+                    onChange={(e) => setAgentConfig({ ...agentConfig, name: e.target.value })}
+                    placeholder="e.g. Finance Coordinator"
+                    className="w-full rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-600 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500/50 transition"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-zinc-500 mb-1.5">Instructions</label>
+                  <textarea
+                    value={agentConfig.description || ''}
+                    onChange={(e) => setAgentConfig({ ...agentConfig, description: e.target.value })}
+                    placeholder="Describe what this agent should do..."
+                    rows={8}
+                    className="w-full rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-600 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500/50 resize-none transition"
+                  />
+                </div>
+                <button
+                  onClick={() => setViewMode('editor')}
+                  className="w-full rounded-lg border border-zinc-800 bg-zinc-900/60 py-2 text-xs font-medium text-zinc-400 hover:text-zinc-200 transition flex items-center justify-center gap-2"
+                >
+                  <Sparkles size={12} /> Edit Pipeline
+                </button>
+              </div>
+            </div>
+          </aside>
+
+          {/* Right: Chat */}
           <section className="flex-1 flex flex-col min-w-0 bg-[#0f0f11]">
             <header className="h-13 border-b border-zinc-800/40 px-6 flex items-center justify-between bg-[#0f0f11]">
               <div className="flex items-center gap-3">

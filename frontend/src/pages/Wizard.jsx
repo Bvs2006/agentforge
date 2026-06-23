@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../hooks/useStore'
 import { agentAPI } from '../services/api'
@@ -11,7 +11,7 @@ export default function Wizard() {
   const {
     agentConfig, setAgentConfig,
     templates, selectedTemplate,
-    taskInput, isRunning, addNotification, user,
+    taskInput, addNotification, user,
   } = useStore()
 
   const [showSettings, setShowSettings] = useState(false)
@@ -28,7 +28,7 @@ export default function Wizard() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    agentAPI.getTemplates().then(response => {}).catch(() => {})
+    agentAPI.getTemplates().then(() => {}).catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -160,18 +160,18 @@ export default function Wizard() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#171717] text-white">
+    <div className="flex h-screen flex-col overflow-hidden bg-[#0f0f11] text-white">
       {/* Settings Modal */}
       {showSettings && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center">
-          <div className="card w-96 p-6 space-y-4 border border-zinc-800 bg-zinc-950 text-white shadow-2xl">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="w-96 rounded-2xl border border-zinc-800 bg-[#18181b] p-6 shadow-2xl space-y-5">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold flex items-center gap-1.5"><Settings2 size={16} /> Execution Variables</h3>
-              <button onClick={() => setShowSettings(false)} className="text-zinc-500 hover:text-white"><X size={16} /></button>
+              <h3 className="text-sm font-semibold flex items-center gap-2 text-zinc-100"><Settings2 size={16} className="text-violet-400" /> Execution Variables</h3>
+              <button onClick={() => setShowSettings(false)} className="text-zinc-500 hover:text-zinc-300"><X size={16} /></button>
             </div>
-            <div className="space-y-3 text-xs">
+            <div className="space-y-4 text-xs">
               <div>
-                <label className="block text-zinc-500 mb-1">Max Steps</label>
+                <label className="block text-zinc-500 mb-1.5">Max Steps</label>
                 <input
                   type="number"
                   value={agentConfig.parameters?.max_steps || 5}
@@ -179,11 +179,11 @@ export default function Wizard() {
                     ...agentConfig,
                     parameters: { ...(agentConfig.parameters || {}), max_steps: Number(e.target.value) }
                   })}
-                  className="input"
+                  className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-zinc-100 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
                 />
               </div>
               <div>
-                <label className="block text-zinc-500 mb-1">Temperature</label>
+                <label className="block text-zinc-500 mb-1.5">Temperature</label>
                 <input
                   type="range" min="0" max="1" step="0.1"
                   value={agentConfig.parameters?.temperature || 0.2}
@@ -191,183 +191,180 @@ export default function Wizard() {
                     ...agentConfig,
                     parameters: { ...(agentConfig.parameters || {}), temperature: Number(e.target.value) }
                   })}
-                  className="w-full accent-ibm-blue"
+                  className="w-full accent-violet-500"
                 />
-                <span className="text-zinc-500 mt-1 block text-right">val: {agentConfig.parameters?.temperature || 0.2}</span>
+                <span className="text-zinc-500 mt-1 block text-right">{agentConfig.parameters?.temperature || 0.2}</span>
               </div>
               <div>
-                <label className="block text-zinc-500 mb-1">System Instructions</label>
+                <label className="block text-zinc-500 mb-1.5">System Instructions</label>
                 <textarea
                   rows={3}
                   value={agentConfig.description || ''}
                   onChange={(e) => setAgentConfig({ ...agentConfig, description: e.target.value })}
                   placeholder="You are an autonomous AI Agent..."
-                  className="input resize-none"
+                  className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-zinc-100 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500 resize-none"
                 />
               </div>
             </div>
-            <button onClick={() => setShowSettings(false)} className="btn-primary w-full text-xs py-2 justify-center">Save Settings</button>
+            <button onClick={() => setShowSettings(false)} className="w-full rounded-lg bg-violet-600 py-2 text-xs font-semibold text-white hover:bg-violet-500 transition">Save Settings</button>
           </div>
         </div>
       )}
 
       {/* Header */}
-      <header className="flex h-12 shrink-0 items-center justify-between bg-[#242424] px-4 border-b border-zinc-800">
+      <header className="flex h-14 shrink-0 items-center justify-between px-5 border-b border-zinc-800/60 bg-[#0f0f11]">
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate('/app/dashboard')} className="text-zinc-200 hover:text-white" title="Back">
-            <ArrowLeft size={22} />
+          <button onClick={() => navigate('/app/dashboard')} className="text-zinc-400 hover:text-white transition">
+            <ArrowLeft size={20} />
           </button>
-          <h1 className="text-xl font-bold">Creator Studio</h1>
+          <h1 className="text-base font-semibold tracking-tight text-zinc-100">Creator Studio</h1>
         </div>
-        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center rounded-full bg-black p-0.5 text-sm font-bold border border-zinc-800">
+
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center rounded-lg bg-zinc-900 p-0.5 border border-zinc-800">
           <button
             onClick={() => setViewMode('editor')}
-            className={`rounded-full px-4 py-1.5 transition ${viewMode === 'editor' ? 'border border-indigo-400 bg-indigo-500/20 text-white' : 'text-zinc-400 hover:text-white'}`}
+            className={`rounded-md px-4 py-1.5 text-sm font-medium transition ${viewMode === 'editor' ? 'bg-violet-600 text-white shadow-sm' : 'text-zinc-400 hover:text-zinc-200'}`}
           >
             Editor
           </button>
           <button
             onClick={() => setViewMode('app')}
-            className={`rounded-full px-4 py-1.5 transition ${viewMode === 'app' ? 'border border-indigo-400 bg-indigo-500/20 text-white' : 'text-zinc-400 hover:text-white'}`}
+            className={`rounded-md px-4 py-1.5 text-sm font-medium transition ${viewMode === 'app' ? 'bg-violet-600 text-white shadow-sm' : 'text-zinc-400 hover:text-zinc-200'}`}
           >
             App
           </button>
         </div>
+
         <div className="flex items-center gap-3">
           <button
             onClick={() => setViewMode(viewMode === 'app' ? 'editor' : 'app')}
-            className="md:hidden flex items-center gap-1.5 rounded-full bg-black px-3 py-1.5 text-xs border border-zinc-800 text-zinc-300 hover:text-white"
-            title={viewMode === 'app' ? 'Show sidebar' : 'Full screen chat'}
+            className="md:hidden flex items-center gap-1.5 rounded-lg bg-zinc-900 px-3 py-1.5 text-xs border border-zinc-800 text-zinc-400 hover:text-zinc-200"
           >
             {viewMode === 'app' ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
             {viewMode === 'app' ? 'Sidebar' : 'Fullscreen'}
           </button>
-          <button onClick={() => setShowSettings(true)} className="text-zinc-300 hover:text-white" title="Settings">
-            <Settings size={22} />
+          <button onClick={() => setShowSettings(true)} className="text-zinc-400 hover:text-zinc-200 transition" title="Settings">
+            <Settings size={18} />
           </button>
-          <button onClick={() => addNotification(`User session: ${user?.username || 'Guest'}`, 'info')} className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-200 text-zinc-500" title="Account">
-            <User size={20} />
+          <button onClick={() => addNotification(`User: ${user?.username || 'Guest'}`, 'info')} className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-800 text-zinc-400 hover:text-zinc-200 transition" title="Account">
+            <User size={16} />
           </button>
         </div>
       </header>
 
-      {/* Main: Left config + Right chat */}
-      <div className="flex min-h-0 flex-1 flex-col xl:flex-row bg-[#0e1014]">
-        {/* Left panel: Config editor (hidden in App mode) */}
+      {/* Main */}
+      <div className="flex min-h-0 flex-1">
+        {/* Left panel: Config */}
         {viewMode === 'editor' && (
-          <aside className="w-full xl:w-80 border-b xl:border-b-0 xl:border-r border-zinc-800 bg-[#161920] p-5 space-y-5 flex flex-col overflow-y-auto">
-            <div>
-              <h2 className="text-sm font-bold text-white flex items-center gap-1.5">Agent Config</h2>
-            </div>
-            <div className="space-y-4">
+          <aside className="w-80 shrink-0 border-r border-zinc-800/60 bg-[#121214] flex flex-col overflow-y-auto">
+            <div className="p-5 space-y-5">
               <div>
-                <label className="block text-xs font-semibold text-zinc-400 mb-1.5">Agent Name</label>
-                <input
-                  value={agentConfig.name}
-                  onChange={(e) => setAgentConfig({ ...agentConfig, name: e.target.value })}
-                  placeholder="e.g. Finance Coordinator"
-                  className="input"
-                />
+                <h2 className="text-xs font-semibold tracking-wider text-zinc-500 uppercase">Agent Config</h2>
               </div>
-              <div>
-                <label className="block text-xs font-semibold text-zinc-400 mb-1.5">Instructions</label>
-                <textarea
-                  value={agentConfig.description || ''}
-                  onChange={(e) => setAgentConfig({ ...agentConfig, description: e.target.value })}
-                  placeholder="Describe details, roles, rules, and outcomes..."
-                  rows={6}
-                  className="input resize-none"
-                />
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-medium text-zinc-500 mb-1.5">Name</label>
+                  <input
+                    value={agentConfig.name}
+                    onChange={(e) => setAgentConfig({ ...agentConfig, name: e.target.value })}
+                    placeholder="e.g. Finance Coordinator"
+                    className="w-full rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-600 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500/50 transition"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-zinc-500 mb-1.5">Instructions</label>
+                  <textarea
+                    value={agentConfig.description || ''}
+                    onChange={(e) => setAgentConfig({ ...agentConfig, description: e.target.value })}
+                    placeholder="Describe what this agent should do..."
+                    rows={8}
+                    className="w-full rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-600 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500/50 resize-none transition"
+                  />
+                </div>
               </div>
             </div>
           </aside>
         )}
 
         {/* Right panel: Chat */}
-        <section className="flex-1 flex flex-col min-w-0 bg-[#0b0c10] relative">
-          <header className="h-[52px] border-b border-zinc-900 px-6 flex items-center justify-between bg-zinc-950/80 backdrop-blur z-10">
+        <section className="flex-1 flex flex-col min-w-0 bg-[#0f0f11]">
+          <header className="h-13 border-b border-zinc-800/40 px-6 flex items-center justify-between bg-[#0f0f11]">
             <div className="flex items-center gap-3">
-              <div className="relative">
-                <Bot size={20} />
-                <span className="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-green-500 border border-zinc-950" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600/10 border border-violet-500/20">
+                <Bot size={16} className="text-violet-400" />
               </div>
               <div>
-                <h1 className="text-xs font-bold text-white">{agentConfig.name || 'Draft Agent'}</h1>
-                <p className="text-[9px] text-zinc-500">Live Config Playground</p>
+                <h2 className="text-sm font-medium text-zinc-200">{agentConfig.name || 'Untitled Agent'}</h2>
+                <p className="text-[10px] text-zinc-500">Ready</p>
               </div>
             </div>
             <button
               onClick={() => setChatMessages([])}
-              className="btn-secondary text-xs px-2.5 py-1 bg-zinc-900 border-zinc-800 text-zinc-400"
+              className="rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-1.5 text-xs font-medium text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition"
             >
-              Clear Chat
+              Clear
             </button>
           </header>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6">
-            {chatMessages.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center max-w-sm mx-auto">
-                <div className="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center mb-3">
-                  <MessageSquare size={18} />
+          <div className="flex-1 overflow-y-auto">
+            <div className="mx-auto max-w-3xl px-6 py-8 space-y-6">
+              {chatMessages.length === 0 ? (
+                <div className="flex flex-col items-center justify-center text-center py-24">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-900 border border-zinc-800 mb-4">
+                    <MessageSquare size={20} className="text-zinc-500" />
+                  </div>
+                  <h3 className="text-sm font-medium text-zinc-300">Start a conversation</h3>
+                  <p className="text-xs text-zinc-600 mt-1.5 max-w-xs leading-relaxed">
+                    Type a message below to test your agent's configuration in real time.
+                  </p>
                 </div>
-                <h2 className="text-xs font-semibold text-zinc-300">Playground session initialized</h2>
-                <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed">
-                  Type a task command below. The execution runner will parse it on the fly using your draft prompt rules and tools list.
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-4 max-w-3xl mx-auto">
-                {chatMessages.map((msg, index) => {
+              ) : (
+                chatMessages.map((msg, index) => {
                   const isUser = msg.role === 'user'
                   return (
-                    <div key={index} className={`flex items-start gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
-                      {!isUser && (
-                        <div className="w-7 h-7 rounded-lg bg-zinc-950 border border-zinc-800 flex items-center justify-center shrink-0">
-                          <Bot size={14} />
-                        </div>
-                      )}
-                      <div className="max-w-[75%] min-w-0">
-                        <div className={`rounded-xl px-4 py-2.5 text-xs leading-relaxed border ${isUser ? 'bg-ibm-blue border-ibm-blue/40 text-white rounded-tr-none' : 'bg-zinc-900/60 border-zinc-800/60 text-zinc-200 rounded-tl-none'}`}>
+                    <div key={index} className={`flex items-start gap-3 ${isUser ? 'flex-row-reverse' : ''}`}>
+                      <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border ${isUser ? 'bg-violet-600/10 border-violet-500/20' : 'bg-zinc-800 border-zinc-700'}`}>
+                        {isUser ? <User size={13} className="text-violet-400" /> : <Bot size={13} className="text-zinc-300" />}
+                      </div>
+                      <div className={`max-w-[70%] min-w-0 ${isUser ? 'items-end' : 'items-start'} flex flex-col`}>
+                        <div className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${isUser ? 'bg-violet-600 text-white rounded-tr-sm' : 'bg-zinc-900 border border-zinc-800/60 text-zinc-200 rounded-tl-sm'}`}>
                           <div className="whitespace-pre-wrap break-words">{msg.content}</div>
                         </div>
-                        <span className="text-[9px] text-zinc-600 mt-1 block px-1">
+                        <span className="text-[10px] text-zinc-600 mt-1 px-1">
                           {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </span>
                       </div>
-                      {isUser && (
-                        <div className="w-7 h-7 rounded-lg bg-ibm-blue/15 border border-ibm-blue/25 flex items-center justify-center shrink-0">
-                          <User size={14} />
-                        </div>
-                      )}
                     </div>
                   )
-                })}
-              </div>
-            )}
+                })
+              )}
 
-            {/* Running trace */}
-            {chatLoading && chatSteps.length > 0 && (
-              <div className="max-w-3xl mx-auto pl-10 space-y-3">
-                <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 max-w-sm shadow-xl animate-pulse">
-                  <div className="flex items-center gap-1.5 text-[10px] font-semibold text-zinc-300 mb-2">
-                    <Terminal size={12} />
-                    <span>Pipeline execution log</span>
+              {chatLoading && chatSteps.length > 0 && (
+                <div className="flex items-start gap-3">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-zinc-700 bg-zinc-800">
+                    <Bot size={13} className="text-zinc-300" />
                   </div>
-                  <div className="space-y-1.5">
-                    {chatSteps.map(step => (
-                      <div key={step.step} className="flex items-center justify-between text-[10px]">
-                        <span className="text-zinc-400">{step.step}. {step.name}</span>
-                        <span className={`badge border text-[8px] ${step.status === 'done' ? 'text-green-400 bg-green-500/10 border-green-500/20' : step.status === 'active' ? 'text-ibm-blue bg-ibm-blue/10 border-ibm-blue/20' : 'text-zinc-600 border-zinc-850 bg-zinc-950'}`}>
-                          {step.status}
-                        </span>
-                      </div>
-                    ))}
+                  <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900 p-4 max-w-sm">
+                    <div className="flex items-center gap-2 text-[10px] font-medium text-zinc-400 mb-3">
+                      <Terminal size={11} className="text-violet-400" />
+                      <span>Pipeline running</span>
+                    </div>
+                    <div className="space-y-2">
+                      {chatSteps.map(step => (
+                        <div key={step.step} className="flex items-center justify-between gap-4 text-[11px]">
+                          <span className="text-zinc-400">{step.name}</span>
+                          <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded ${step.status === 'done' ? 'text-emerald-400 bg-emerald-500/10' : step.status === 'active' ? 'text-violet-400 bg-violet-500/10' : 'text-zinc-600 bg-zinc-800'}`}>
+                            {step.status}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-            <div ref={chatEndRef} />
+              )}
+              <div ref={chatEndRef} />
+            </div>
           </div>
 
           {/* Hidden file input */}
@@ -380,51 +377,38 @@ export default function Wizard() {
           />
 
           {/* Input */}
-          <div className="p-4 border-t border-zinc-900 bg-zinc-950/40 shrink-0">
-            <div className="max-w-3xl mx-auto">
+          <div className="border-t border-zinc-800/40 bg-[#0f0f11] px-6 py-4">
+            <div className="mx-auto max-w-3xl">
               {doclingParsed && (
-                <div className="mb-2 flex items-center justify-between rounded-lg border border-teal-400/30 bg-teal-400/5 px-3 py-1 text-xs text-teal-400">
+                <div className="mb-2 flex items-center justify-between rounded-lg border border-violet-500/20 bg-violet-500/5 px-3 py-1.5 text-xs text-violet-400">
                   <span className="flex items-center gap-1.5">
-                    <FileText size={12} /> Attached: {doclingParsed.filename} (+{doclingParsed.text?.length} chars)
+                    <FileText size={12} /> {doclingParsed.filename} ({doclingParsed.text?.length} chars)
                   </span>
-                  <button onClick={() => setDoclingParsed(null)} className="hover:text-teal-300">
-                    <X size={12} />
-                  </button>
+                  <button onClick={() => setDoclingParsed(null)} className="hover:text-violet-300"><X size={12} /></button>
                 </div>
               )}
-              <div className="relative flex items-center rounded-xl border border-zinc-800 bg-[#161821] p-1 pr-2 focus-within:ring-1 focus-within:ring-ibm-blue focus-within:border-transparent">
+              <div className="flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/60 px-3 py-2 focus-within:border-violet-500/50 focus-within:ring-1 focus-within:ring-violet-500/20 transition">
                 <button
                   onClick={() => fileInputRef.current?.click()}
                   disabled={chatLoading || doclingUploading}
-                  className="p-1.5 text-zinc-500 hover:text-white"
-                  title="Process document"
+                  className="shrink-0 text-zinc-500 hover:text-zinc-300 transition"
                 >
-                  {doclingUploading ? (
-                    <Loader2 className="animate-spin" size={16} />
-                  ) : (
-                    <Paperclip size={16} />
-                  )}
+                  {doclingUploading ? <Loader2 size={16} className="animate-spin text-violet-400" /> : <Paperclip size={16} />}
                 </button>
                 <input
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !chatLoading) handleSendChatMessage()
-                  }}
-                  placeholder={doclingUploading ? 'Parsing document...' : 'Send test query to draft agent...'}
+                  onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey && !chatLoading) handleSendChatMessage() }}
+                  placeholder="Type a message..."
                   disabled={chatLoading}
-                  className="flex-1 bg-transparent border-none text-xs text-white placeholder-zinc-500 focus:outline-none focus:ring-0 px-2 py-1.5"
+                  className="flex-1 bg-transparent text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none"
                 />
                 <button
                   onClick={handleSendChatMessage}
                   disabled={chatLoading || (!chatInput.trim() && !doclingParsed)}
-                  className={`flex h-7 w-7 items-center justify-center rounded-lg transition ${chatInput.trim() || doclingParsed ? 'bg-ibm-blue hover:bg-blue-600 text-white' : 'bg-zinc-800 text-zinc-600 cursor-not-allowed'}`}
+                  className={`shrink-0 flex h-8 w-8 items-center justify-center rounded-lg transition ${chatInput.trim() || doclingParsed ? 'bg-violet-600 text-white hover:bg-violet-500' : 'bg-zinc-800 text-zinc-600'}`}
                 >
-                  {chatLoading ? (
-                    <Loader2 className="animate-spin" size={12} />
-                  ) : (
-                    <Send size={12} />
-                  )}
+                  {chatLoading ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
                 </button>
               </div>
             </div>

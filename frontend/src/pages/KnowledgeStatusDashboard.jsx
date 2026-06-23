@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { knowledgeAPI } from '../services/api'
 import {
@@ -47,14 +47,14 @@ export default function KnowledgeStatusDashboard() {
   const readyAgents = Object.values(agentStatuses).filter(s => s.status === 'ready').length
   const totalSources = Object.values(agentStatuses).reduce((a, s) => a + (s.sources_count || 0), 0)
 
-  if (loading) return <div className="min-h-screen bg-[#0e1014] flex items-center justify-center"><Loader2 className="animate-spin text-ibm-blue" size={24} /></div>
+  if (loading) return <div className="min-h-screen bg-[#0f0f11] flex items-center justify-center"><Loader2 className="animate-spin text-violet-400" size={24} /></div>
 
   return (
-    <div className="min-h-screen bg-[#0e1014] text-white p-6">
+    <div className="min-h-screen bg-[#0f0f11] text-white p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <div className="flex items-center gap-2 text-ibm-blue mb-1">
+            <div className="flex items-center gap-2 text-violet-400 mb-1">
               <Activity size={18} />
               <span className="text-xs font-semibold uppercase tracking-wider">Knowledge Status</span>
             </div>
@@ -68,10 +68,10 @@ export default function KnowledgeStatusDashboard() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
-            { icon: Bot, label: 'Knowledge Agents', value: agents.length, color: 'text-ibm-blue' },
+            { icon: Bot, label: 'Knowledge Agents', value: agents.length, color: 'text-violet-400' },
             { icon: CheckCircle2, label: 'Ready Agents', value: readyAgents, color: 'text-green-400' },
-            { icon: Layers, label: 'Total Chunks', value: totalChunks, color: 'text-ibm-purple' },
-            { icon: Database, label: 'Total Sources', value: totalSources, color: 'text-ibm-teal' },
+            { icon: Layers, label: 'Total Chunks', value: totalChunks, color: 'text-purple-400' },
+            { icon: Database, label: 'Total Sources', value: totalSources, color: 'text-emerald-400' },
           ].map(stat => (
             <div key={stat.label} className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-4">
               <div className="flex items-center gap-2 mb-2">
@@ -86,7 +86,7 @@ export default function KnowledgeStatusDashboard() {
         {status && (
           <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5 mb-8">
             <h2 className="text-sm font-semibold mb-3 flex items-center gap-2">
-              <Zap size={14} className="text-ibm-blue" /> Services
+              <Zap size={14} className="text-violet-400" /> Services
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
@@ -119,7 +119,7 @@ export default function KnowledgeStatusDashboard() {
                     className="flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-950/60 p-3 cursor-pointer hover:border-zinc-600 transition"
                     onClick={() => navigate(`/knowledge/${agent.id}`)}
                   >
-                    <Bot size={16} className="text-ibm-blue" />
+                    <Bot size={16} className="text-violet-400" />
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-medium">{agent.name}</p>
                       <p className="text-[10px] text-zinc-500">{as.sources_count || 0} sources &middot; {as.total_chunks || 0} chunks</p>

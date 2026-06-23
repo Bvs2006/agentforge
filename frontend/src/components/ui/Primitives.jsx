@@ -6,7 +6,7 @@ export function PageShell({ eyebrow, title, description, action, children, class
       <header className="mb-7 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           {eyebrow ? (
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-ibm-teal">{eyebrow}</p>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-400">{eyebrow}</p>
           ) : null}
           <h1 className="text-2xl font-bold text-white">{title}</h1>
           {description ? <p className="mt-1 text-sm text-gray-400">{description}</p> : null}
@@ -37,9 +37,9 @@ export function SectionCard({ title, description, meta, children, className = ''
 
 export function MetricCard({ label, value, icon: Icon, tone = 'blue', detail }) {
   const tones = {
-    blue: 'bg-ibm-blue/10 text-ibm-blue border-ibm-blue/20',
-    purple: 'bg-ibm-purple/10 text-ibm-purple border-ibm-purple/20',
-    teal: 'bg-ibm-teal/10 text-ibm-teal border-ibm-teal/20',
+    blue: 'bg-violet-600/10 text-violet-400 border-violet-500/20',
+    purple: 'bg-violet-600/10 text-purple-400 border-violet-500/20',
+    teal: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
     green: 'bg-green-500/10 text-green-400 border-green-500/20',
   }
 
@@ -57,7 +57,7 @@ export function MetricCard({ label, value, icon: Icon, tone = 'blue', detail }) 
   )
 }
 
-export function ActionRow({ icon: Icon, title, description, tone = 'text-ibm-blue', onClick }) {
+export function ActionRow({ icon: Icon, title, description, tone = 'text-violet-400', onClick }) {
   return (
     <button
       type="button"

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { knowledgeAPI } from '../services/api'
 import {
@@ -84,10 +84,10 @@ export default function KnowledgeSourceManager() {
     }
   }
 
-  if (loading) return <div className="min-h-screen bg-[#0e1014] flex items-center justify-center"><Loader2 className="animate-spin text-ibm-blue" size={24} /></div>
+  if (loading) return <div className="min-h-screen bg-[#0f0f11] flex items-center justify-center"><Loader2 className="animate-spin text-violet-400" size={24} /></div>
 
   return (
-    <div className="min-h-screen bg-[#0e1014] text-white p-6">
+    <div className="min-h-screen bg-[#0f0f11] text-white p-6">
       <div className="max-w-4xl mx-auto">
         <button onClick={() => navigate(`/knowledge/${agentId}`)} className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white mb-4 transition">
           <ArrowLeft size={16} />
@@ -100,9 +100,9 @@ export default function KnowledgeSourceManager() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5">
             <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-              <Upload size={14} className="text-ibm-blue" /> Upload File
+              <Upload size={14} className="text-violet-400" /> Upload File
             </h3>
-            <label className="flex flex-col items-center gap-2 rounded-xl border-2 border-dashed border-zinc-700 p-6 cursor-pointer hover:border-ibm-blue/50 transition">
+            <label className="flex flex-col items-center gap-2 rounded-xl border-2 border-dashed border-zinc-700 p-6 cursor-pointer hover:border-violet-500/50 transition">
               <Upload size={20} className="text-zinc-500" />
               <span className="text-xs text-zinc-400">Click to upload PDF, DOCX, TXT, MD, CSV, XLSX</span>
               <input type="file" onChange={handleFileUpload} className="hidden" accept=".pdf,.docx,.doc,.txt,.md,.csv,.xlsx,.xls" />
@@ -111,7 +111,7 @@ export default function KnowledgeSourceManager() {
 
           <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5">
             <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-              <Globe size={14} className="text-ibm-teal" /> Add URL
+              <Globe size={14} className="text-emerald-400" /> Add URL
             </h3>
             <div className="flex gap-2">
               <input
@@ -136,10 +136,10 @@ export default function KnowledgeSourceManager() {
                 return (
                   <div key={source.id} className="flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-950/60 p-3">
                     <Icon size={16} className={
-                      source.type === 'website' ? 'text-ibm-teal' :
-                      source.type === 'repository' ? 'text-ibm-purple' :
-                      source.type === 'spreadsheet' ? 'text-ibm-cyan' :
-                      'text-ibm-blue'
+                      source.type === 'website' ? 'text-emerald-400' :
+                      source.type === 'repository' ? 'text-purple-400' :
+                      source.type === 'spreadsheet' ? 'text-cyan-400' :
+                      'text-violet-400'
                     } />
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-medium truncate">{source.name}</p>
@@ -155,7 +155,7 @@ export default function KnowledgeSourceManager() {
                       ) : (
                         <Loader2 size={14} className="animate-spin text-yellow-500" />
                       )}
-                      <button onClick={() => handleReingest(source.id)} className="text-zinc-600 hover:text-ibm-teal transition" title="Re-ingest">
+                      <button onClick={() => handleReingest(source.id)} className="text-zinc-600 hover:text-emerald-400 transition" title="Re-ingest">
                         <RefreshCw size={12} />
                       </button>
                       <button onClick={() => handleDeleteSource(source.id)} className="text-zinc-600 hover:text-red-400 transition" title="Delete">

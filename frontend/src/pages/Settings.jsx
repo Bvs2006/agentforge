@@ -16,7 +16,7 @@ export default function SettingsPage() {
 
         <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-6 mb-4">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-ibm-blue to-ibm-purple flex items-center justify-center text-white text-xl font-bold">
+            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-violet-500 to-violet-400 flex items-center justify-center text-white text-xl font-bold">
               {user?.username?.[0]?.toUpperCase() || 'U'}
             </div>
             <div>
@@ -45,7 +45,7 @@ export default function SettingsPage() {
 
         <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-6 mb-4">
           <h2 className="text-sm font-semibold mb-3 flex items-center gap-2">
-            <Sparkles size={14} className="text-ibm-blue" />
+            <Sparkles size={14} className="text-violet-400" />
             About AgentForge
           </h2>
           <p className="text-xs text-zinc-500 leading-relaxed">

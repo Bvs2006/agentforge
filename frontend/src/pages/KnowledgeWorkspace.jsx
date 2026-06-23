@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { knowledgeAPI } from '../services/api'
 import {
@@ -35,11 +35,11 @@ export default function KnowledgeWorkspace() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#0e1014] text-white p-6">
+    <div className="min-h-screen bg-[#0f0f11] text-white p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <div className="flex items-center gap-2 text-ibm-blue mb-1">
+            <div className="flex items-center gap-2 text-violet-400 mb-1">
               <Brain size={20} />
               <span className="text-xs font-semibold uppercase tracking-wider">Knowledge Workspace</span>
             </div>
@@ -58,14 +58,14 @@ export default function KnowledgeWorkspace() {
         {status && (
           <div className="flex gap-3 mb-8 text-xs">
             <div className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-950/50 px-3 py-2">
-              <Database size={14} className="text-ibm-teal" />
+              <Database size={14} className="text-emerald-400" />
               <span className="text-zinc-400">Embeddings:</span>
               <span className={status.embeddings === 'available' ? 'text-green-400' : 'text-yellow-400'}>
                 {status.embeddings}
               </span>
             </div>
             <div className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-950/50 px-3 py-2">
-              <Zap size={14} className="text-ibm-purple" />
+              <Zap size={14} className="text-purple-400" />
               <span className="text-zinc-400">Vector Store:</span>
               <span className="text-green-400">{status.vector_store}</span>
             </div>
@@ -74,12 +74,12 @@ export default function KnowledgeWorkspace() {
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="animate-spin text-ibm-blue" size={24} />
+            <Loader2 className="animate-spin text-violet-400" size={24} />
           </div>
         ) : agents.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="w-16 h-16 rounded-2xl bg-zinc-950 border border-zinc-800 flex items-center justify-center mb-4">
-              <Brain size={32} className="text-ibm-blue" />
+              <Brain size={32} className="text-violet-400" />
             </div>
             <h2 className="text-lg font-semibold mb-2">No Knowledge Agents yet</h2>
             <p className="text-sm text-zinc-400 mb-6 max-w-md">
@@ -96,9 +96,9 @@ export default function KnowledgeWorkspace() {
                 <button
                   key={item.label}
             onClick={() => navigate('/app/knowledge/new')}
-                  className="flex flex-col items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-950/30 p-4 text-center hover:border-ibm-blue/50 hover:bg-ibm-blue/5 transition group"
+                  className="flex flex-col items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-950/30 p-4 text-center hover:border-violet-500/50 hover:bg-violet-600/5 transition group"
                 >
-                  <item.icon size={24} className="text-zinc-500 group-hover:text-ibm-blue transition" />
+                  <item.icon size={24} className="text-zinc-500 group-hover:text-violet-400 transition" />
                   <span className="text-xs font-semibold">{item.label}</span>
                   <span className="text-[10px] text-zinc-500">{item.desc}</span>
                 </button>
@@ -110,20 +110,20 @@ export default function KnowledgeWorkspace() {
             {agents.map(agent => (
               <div
                 key={agent.id}
-                className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5 hover:border-ibm-blue/40 transition group cursor-pointer"
+                className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5 hover:border-violet-500/40 transition group cursor-pointer"
                 onClick={() => navigate(`/knowledge/${agent.id}`)}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-10 h-10 rounded-lg bg-ibm-blue/10 border border-ibm-blue/20 flex items-center justify-center">
-                      <Bot size={20} className="text-ibm-blue" />
+                    <div className="w-10 h-10 rounded-lg bg-violet-600/10 border border-violet-500/20 flex items-center justify-center">
+                      <Bot size={20} className="text-violet-400" />
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold">{agent.name}</h3>
                       <p className="text-[10px] text-zinc-500">{agent.source_ids?.length || 0} sources</p>
                     </div>
                   </div>
-                  <ArrowRight size={16} className="text-zinc-600 group-hover:text-ibm-blue transition" />
+                  <ArrowRight size={16} className="text-zinc-600 group-hover:text-violet-400 transition" />
                 </div>
                 {agent.description && (
                   <p className="text-xs text-zinc-400 mb-3 line-clamp-2">{agent.description}</p>
@@ -134,8 +134,8 @@ export default function KnowledgeWorkspace() {
                   {agent.memory_enabled && (
                     <>
                       <span className="text-zinc-700">|</span>
-                      <CheckCircle2 size={12} className="text-ibm-teal" />
-                      <span className="text-ibm-teal">Memory</span>
+                      <CheckCircle2 size={12} className="text-emerald-400" />
+                      <span className="text-emerald-400">Memory</span>
                     </>
                   )}
                 </div>

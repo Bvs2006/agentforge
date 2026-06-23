@@ -27,7 +27,7 @@ const CATEGORY_STYLES = {
   data: 'text-emerald-300 bg-emerald-500/10 border-emerald-500/20',
   research: 'text-amber-300 bg-amber-500/10 border-amber-500/20',
   general: 'text-gray-300 bg-gray-500/10 border-gray-600',
-  custom: 'text-ibm-blue bg-ibm-blue/10 border-ibm-blue/25',
+  custom: 'text-violet-400 bg-violet-600/10 border-violet-500/25',
 }
 
 const TEMPLATE_ICONS = {
@@ -181,7 +181,7 @@ export default function Agents() {
   return (
     <div className="p-6 max-w-7xl mx-auto animate-fade-in">
       <div className="mb-7">
-        <p className="text-xs uppercase tracking-[0.18em] text-ibm-teal mb-2">Agent Builder</p>
+        <p className="text-xs uppercase tracking-[0.18em] text-emerald-400 mb-2">Agent Builder</p>
         <h1 className="text-2xl font-bold text-white">Build agents from templates or scratch</h1>
         <p className="text-gray-400 text-sm mt-1">
           Start with built-in agents, tune their MCP tools, or create a custom automation agent.
@@ -222,16 +222,16 @@ export default function Agents() {
                       onClick={() => selectTemplate(template)}
                       className={`text-left rounded-lg border p-4 transition-all ${
                         active
-                          ? 'border-ibm-blue bg-ibm-blue/10 shadow-lg shadow-blue-950/30'
+                          ? 'border-violet-500 bg-violet-600/10 shadow-lg shadow-violet-900/30'
                           : 'border-gray-800 bg-gray-900/45 hover:bg-gray-800/60 hover:border-gray-700'
                       }`}
                     >
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-8 h-8 rounded-lg bg-gray-950 border border-gray-800 flex items-center justify-center shrink-0">
-                          <Icon size={16} className={active ? 'text-ibm-blue' : 'text-gray-300'} />
+                          <Icon size={16} className={active ? 'text-violet-400' : 'text-gray-300'} />
                         </div>
                         <h3 className="font-semibold text-white text-sm leading-tight">{template.name}</h3>
-                        {active && <Check size={14} className="text-ibm-blue ml-auto shrink-0" />}
+                        {active && <Check size={14} className="text-violet-400 ml-auto shrink-0" />}
                       </div>
                       <p className="text-xs text-gray-400 leading-relaxed">{template.description}</p>
                       <div className="flex flex-wrap gap-1 mt-3">
@@ -251,12 +251,12 @@ export default function Agents() {
                 onClick={selectCustom}
                 className={`text-left rounded-lg border border-dashed p-4 transition-all ${
                   selectedTemplateId === 'custom_agent'
-                    ? 'border-ibm-blue bg-ibm-blue/10'
+                    ? 'border-violet-500 bg-violet-600/10'
                     : 'border-gray-700 bg-gray-900/30 hover:border-gray-500 hover:bg-gray-800/50'
                 }`}
               >
-                <div className="w-9 h-9 rounded-lg bg-ibm-blue/10 border border-ibm-blue/25 flex items-center justify-center mb-3">
-                  <Plus size={17} className="text-ibm-blue" />
+                <div className="w-9 h-9 rounded-lg bg-violet-600/10 border border-violet-500/25 flex items-center justify-center mb-3">
+                  <Plus size={17} className="text-violet-400" />
                 </div>
                 <h3 className="font-semibold text-white text-sm">Create New Agent</h3>
                 <p className="text-xs text-gray-400 leading-relaxed mt-1">
@@ -298,8 +298,8 @@ export default function Agents() {
                     className="flex items-center gap-3 py-3 px-2 rounded-lg cursor-pointer hover:bg-gray-800/40 transition-all duration-200 -mx-2"
                     onClick={() => navigate(`/app/chat/${agent.name}`)}
                   >
-                    <div className="w-8 h-8 rounded-lg bg-ibm-blue/10 flex items-center justify-center shrink-0">
-                      <Bot size={15} className="text-ibm-blue" />
+                    <div className="w-8 h-8 rounded-lg bg-violet-600/10 flex items-center justify-center shrink-0">
+                      <Bot size={15} className="text-violet-400" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <h3 className="text-sm font-medium text-white truncate">{agent.name}</h3>
@@ -345,8 +345,8 @@ export default function Agents() {
 
         <aside className="card h-fit xl:sticky xl:top-6">
           <div className="flex items-center gap-3 mb-5">
-            <div className="w-10 h-10 rounded-lg bg-ibm-purple/10 border border-ibm-purple/25 flex items-center justify-center">
-              <SelectedIcon size={18} className="text-ibm-purple" />
+            <div className="w-10 h-10 rounded-lg bg-violet-600/10 border border-violet-500/25 flex items-center justify-center">
+              <SelectedIcon size={18} className="text-purple-400" />
             </div>
             <div>
               <h2 className="text-sm font-semibold text-white">Configure Agent</h2>
@@ -380,7 +380,7 @@ export default function Agents() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-xs text-gray-400 font-medium block">MCP tools</label>
-                <button onClick={() => navigate('/app/mcp')} className="text-xs text-ibm-blue hover:underline">
+                <button onClick={() => navigate('/app/mcp')} className="text-xs text-violet-400 hover:underline">
                   Manage MCP
                 </button>
               </div>
@@ -393,7 +393,7 @@ export default function Agents() {
                       onClick={() => toggleTool(server.id)}
                       className={`text-left rounded-lg border px-3 py-2 transition-all ${
                         active
-                          ? 'border-ibm-blue bg-ibm-blue/10 text-white'
+                          ? 'border-violet-500 bg-violet-600/10 text-white'
                           : 'border-gray-800 bg-gray-950/40 text-gray-400 hover:border-gray-700'
                       }`}
                     >

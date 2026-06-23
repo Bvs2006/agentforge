@@ -20,8 +20,8 @@ export default function StepDescribeTask() {
     <div className="max-w-2xl mx-auto">
       <div className="card">
         <div className="flex items-center gap-3 mb-5">
-          <div className="w-9 h-9 rounded-xl bg-ibm-blue/15 flex items-center justify-center">
-            <MessageSquare size={18} className="text-ibm-blue" />
+          <div className="w-9 h-9 rounded-xl bg-violet-600/15 flex items-center justify-center">
+            <MessageSquare size={18} className="text-violet-400" />
           </div>
           <div>
             <h2 className="font-semibold text-white">What do you want to automate?</h2>
@@ -31,7 +31,7 @@ export default function StepDescribeTask() {
 
         <textarea
           className={`w-full bg-gray-900 border rounded-xl p-4 text-gray-100 placeholder-gray-600 resize-none text-sm leading-relaxed focus:outline-none transition-all duration-200 ${
-            focused ? 'border-ibm-blue ring-1 ring-ibm-blue/30' : 'border-gray-700'
+            focused ? 'border-violet-500 ring-1 ring-violet-500/30' : 'border-gray-700'
           }`}
           rows={5}
           placeholder="e.g. Read my Gmail inbox, find emails about project deadlines, and create tasks in Notion…"
@@ -46,7 +46,7 @@ export default function StepDescribeTask() {
         {/* Examples */}
         <div className="mt-5">
           <div className="flex items-center gap-2 mb-3">
-            <Sparkles size={13} className="text-ibm-purple" />
+            <Sparkles size={13} className="text-purple-400" />
             <span className="text-xs text-gray-400 font-medium">Example tasks</span>
           </div>
           <div className="space-y-2">

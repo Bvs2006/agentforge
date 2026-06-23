@@ -70,7 +70,7 @@ export default function StepViewResults() {
                 <ol className="space-y-1 ml-2">
                   {plan.steps.map((s, i) => (
                     <li key={i} className="flex items-start gap-2 text-xs text-gray-400">
-                      <span className="text-ibm-blue font-mono">{i+1}.</span> {s}
+                      <span className="text-violet-400 font-mono">{i+1}.</span> {s}
                     </li>
                   ))}
                 </ol>

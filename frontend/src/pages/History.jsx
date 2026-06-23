@@ -81,18 +81,18 @@ export default function HistoryPage() {
             <div key={i} className={`flex gap-3 p-4 rounded-xl border transition-all ${
               msg.role === 'user'
                 ? 'border-gray-800 bg-gray-900/40'
-                : 'border-ibm-blue/15 bg-ibm-blue/5'
+                : 'border-violet-500/15 bg-violet-600/5'
             }`}>
               <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                msg.role === 'user' ? 'bg-gray-800' : 'bg-ibm-blue/15'
+                msg.role === 'user' ? 'bg-gray-800' : 'bg-violet-600/15'
               }`}>
                 {msg.role === 'user'
                   ? <User size={13} className="text-gray-400" />
-                  : <Bot size={13} className="text-ibm-blue" />}
+                  : <Bot size={13} className="text-violet-400" />}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className={`text-xs font-medium ${msg.role === 'user' ? 'text-gray-400' : 'text-ibm-blue'}`}>
+                  <span className={`text-xs font-medium ${msg.role === 'user' ? 'text-gray-400' : 'text-violet-400'}`}>
                     {msg.role === 'user' ? 'You' : 'AgentForge'}
                   </span>
                   <span className="text-xs text-gray-600">

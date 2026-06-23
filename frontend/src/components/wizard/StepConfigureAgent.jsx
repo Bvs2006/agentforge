@@ -10,8 +10,8 @@ export default function StepConfigureAgent() {
     <div className="max-w-2xl mx-auto">
       <div className="card">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-9 h-9 rounded-xl bg-ibm-purple/15 flex items-center justify-center">
-            <Settings2 size={18} className="text-ibm-purple" />
+          <div className="w-9 h-9 rounded-xl bg-violet-600/15 flex items-center justify-center">
+            <Settings2 size={18} className="text-purple-400" />
           </div>
           <div>
             <h2 className="font-semibold text-white">Configure your agent</h2>
@@ -21,7 +21,7 @@ export default function StepConfigureAgent() {
 
         {/* Selected template badge */}
         {selectedTemplate && (
-          <div className="flex items-center gap-3 p-3 bg-ibm-blue/5 border border-ibm-blue/20 rounded-lg mb-5">
+          <div className="flex items-center gap-3 p-3 bg-violet-600/5 border border-violet-500/20 rounded-lg mb-5">
             <span className="text-xl">{selectedTemplate.icon}</span>
             <div>
               <p className="text-sm font-medium text-white">{selectedTemplate.name}</p>

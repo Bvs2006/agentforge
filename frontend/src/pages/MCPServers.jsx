@@ -122,7 +122,7 @@ export default function MCPServers() {
     <div className="p-6 max-w-7xl mx-auto animate-fade-in">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between mb-7">
         <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-ibm-teal mb-2">MCP Workspace</p>
+          <p className="text-xs uppercase tracking-[0.18em] text-emerald-400 mb-2">MCP Workspace</p>
           <h1 className="text-2xl font-bold text-white">Connect tools for your agents</h1>
           <p className="text-gray-400 text-sm mt-1">
             Browse built-in MCP servers, test tools, and draft new connector definitions.
@@ -176,7 +176,7 @@ export default function MCPServers() {
                       onClick={() => toggleServer(server.id)}
                     >
                       <div className="w-10 h-10 rounded-lg bg-gray-950 border border-gray-800 flex items-center justify-center shrink-0">
-                        <Icon size={18} className="text-ibm-blue" />
+                        <Icon size={18} className="text-violet-400" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
@@ -232,7 +232,7 @@ export default function MCPServers() {
                                     className="btn-ghost text-xs py-1 px-2 shrink-0"
                                   >
                                     {executing === key ? (
-                                      <span className="animate-pulse text-ibm-blue">Testing</span>
+                                      <span className="animate-pulse text-violet-400">Testing</span>
                                     ) : (
                                       <><TestTube2 size={12} /> Test</>
                                     )}
@@ -258,8 +258,8 @@ export default function MCPServers() {
 
         <aside className="card h-fit xl:sticky xl:top-6">
           <div className="flex items-center gap-3 mb-5">
-            <div className="w-10 h-10 rounded-lg bg-ibm-purple/10 border border-ibm-purple/25 flex items-center justify-center">
-              <Code2 size={18} className="text-ibm-purple" />
+            <div className="w-10 h-10 rounded-lg bg-violet-600/10 border border-violet-500/25 flex items-center justify-center">
+              <Code2 size={18} className="text-purple-400" />
             </div>
             <div>
               <h2 className="text-sm font-semibold text-white">Create Custom MCP</h2>
@@ -327,9 +327,9 @@ export default function MCPServers() {
             </pre>
           </div>
 
-          <div className="rounded-lg border border-ibm-blue/20 bg-ibm-blue/5 p-3 mt-4">
+          <div className="rounded-lg border border-violet-500/20 bg-violet-600/5 p-3 mt-4">
             <div className="flex items-start gap-2">
-              <Check size={14} className="text-ibm-blue mt-0.5" />
+              <Check size={14} className="text-violet-400 mt-0.5" />
               <p className="text-xs text-gray-400 leading-relaxed">
                 Add this draft to the backend MCP registry, then agents can select it from the builder.
               </p>

@@ -31,7 +31,7 @@ export default function Dashboard() {
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <div className="flex items-center gap-2 text-ibm-blue mb-1">
+            <div className="flex items-center gap-2 text-violet-400 mb-1">
               <Sparkles size={18} />
               <span className="text-xs font-semibold uppercase tracking-wider">Dashboard</span>
             </div>
@@ -49,10 +49,10 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
-            { icon: Bot, label: 'Your Agents', value: totalAgents, desc: 'AI assistants you created', color: 'text-ibm-blue', bg: 'bg-ibm-blue/10 border-ibm-blue/20' },
-            { icon: Brain, label: 'Knowledge Agents', value: knowledgeAgents.length, desc: 'Built from your files', color: 'text-ibm-purple', bg: 'bg-ibm-purple/10 border-ibm-purple/20' },
-            { icon: MessageSquare, label: 'Conversations', value: recentMessages, desc: 'Questions you asked', color: 'text-ibm-teal', bg: 'bg-ibm-teal/10 border-ibm-teal/20' },
-            { icon: FileText, label: 'Files Processed', value: knowledgeAgents.reduce((a, k) => a + (k.source_ids?.length || 0), 0), desc: 'Documents, repos, sites', color: 'text-ibm-cyan', bg: 'bg-ibm-cyan/10 border-ibm-cyan/20' },
+            { icon: Bot, label: 'Your Agents', value: totalAgents, desc: 'AI assistants you created', color: 'text-violet-400', bg: 'bg-violet-600/10 border-violet-500/20' },
+            { icon: Brain, label: 'Knowledge Agents', value: knowledgeAgents.length, desc: 'Built from your files', color: 'text-purple-400', bg: 'bg-violet-600/10 border-violet-500/20' },
+            { icon: MessageSquare, label: 'Conversations', value: recentMessages, desc: 'Questions you asked', color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
+            { icon: FileText, label: 'Files Processed', value: knowledgeAgents.reduce((a, k) => a + (k.source_ids?.length || 0), 0), desc: 'Documents, repos, sites', color: 'text-cyan-400', bg: 'bg-cyan-500/10 border-cyan-500/20' },
           ].map(stat => (
             <div key={stat.label} className={`rounded-xl border ${stat.bg} p-4`}>
               <div className="flex items-center justify-between mb-3">
@@ -68,14 +68,14 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <button
             onClick={() => navigate('/app/knowledge')}
-            className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5 text-left hover:border-ibm-blue/50 hover:bg-ibm-blue/5 transition group"
+            className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5 text-left hover:border-violet-500/50 hover:bg-violet-600/5 transition group"
           >
-            <div className="w-10 h-10 rounded-lg bg-ibm-blue/10 border border-ibm-blue/20 flex items-center justify-center mb-3">
-              <Brain size={20} className="text-ibm-blue" />
+            <div className="w-10 h-10 rounded-lg bg-violet-600/10 border border-violet-500/20 flex items-center justify-center mb-3">
+              <Brain size={20} className="text-violet-400" />
             </div>
             <h3 className="text-sm font-semibold mb-1">Knowledge Agents</h3>
             <p className="text-xs text-zinc-400 mb-3">Create AI chatbots from PDFs, websites, code repos, and spreadsheets</p>
-            <div className="flex items-center gap-1 text-xs text-ibm-blue group-hover:gap-2 transition-all">
+            <div className="flex items-center gap-1 text-xs text-violet-400 group-hover:gap-2 transition-all">
               <span>Open workspace</span>
               <ArrowRight size={12} />
             </div>
@@ -83,14 +83,14 @@ export default function Dashboard() {
 
           <button
             onClick={() => navigate('/app/agents')}
-            className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5 text-left hover:border-ibm-purple/50 hover:bg-ibm-purple/5 transition group"
+            className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5 text-left hover:border-violet-500/50 hover:bg-violet-600/5 transition group"
           >
-            <div className="w-10 h-10 rounded-lg bg-ibm-purple/10 border border-ibm-purple/20 flex items-center justify-center mb-3">
-              <Bot size={20} className="text-ibm-purple" />
+            <div className="w-10 h-10 rounded-lg bg-violet-600/10 border border-violet-500/20 flex items-center justify-center mb-3">
+              <Bot size={20} className="text-purple-400" />
             </div>
             <h3 className="text-sm font-semibold mb-1">Agent Templates</h3>
             <p className="text-xs text-zinc-400 mb-3">Start with ready-made templates for common tasks and workflows</p>
-            <div className="flex items-center gap-1 text-xs text-ibm-purple group-hover:gap-2 transition-all">
+            <div className="flex items-center gap-1 text-xs text-purple-400 group-hover:gap-2 transition-all">
               <span>Browse templates</span>
               <ArrowRight size={12} />
             </div>
@@ -98,14 +98,14 @@ export default function Dashboard() {
 
           <button
             onClick={() => navigate('/app/run')}
-            className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5 text-left hover:border-ibm-cyan/50 hover:bg-ibm-cyan/5 transition group"
+            className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5 text-left hover:border-cyan-500/50 hover:bg-cyan-500/5 transition group"
           >
-            <div className="w-10 h-10 rounded-lg bg-ibm-cyan/10 border border-ibm-cyan/20 flex items-center justify-center mb-3">
-              <Wand2 size={20} className="text-ibm-cyan" />
+            <div className="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-3">
+              <Wand2 size={20} className="text-cyan-400" />
             </div>
             <h3 className="text-sm font-semibold mb-1">Creator Studio</h3>
             <p className="text-xs text-zinc-400 mb-3">Build custom AI agents with a visual wizard and step-by-step guidance</p>
-            <div className="flex items-center gap-1 text-xs text-ibm-cyan group-hover:gap-2 transition-all">
+            <div className="flex items-center gap-1 text-xs text-cyan-400 group-hover:gap-2 transition-all">
               <span>Open studio</span>
               <ArrowRight size={12} />
             </div>
@@ -115,15 +115,15 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5">
             <h2 className="text-sm font-semibold mb-4 flex items-center gap-2">
-              <Star size={14} className="text-ibm-blue" />
+              <Star size={14} className="text-violet-400" />
               Quick Start
             </h2>
             <div className="space-y-2">
               {[
-                { icon: FileText, label: 'Upload a PDF', desc: 'Create an agent from a document',         to: '/app/knowledge/new', color: 'text-ibm-blue' },
-                { icon: Globe, label: 'Add a website', desc: 'Index a documentation site', to: '/app/knowledge/new', color: 'text-ibm-teal' },
-                { icon: Code, label: 'Connect a repository', desc: 'Add a GitHub or local codebase', to: '/app/knowledge/new', color: 'text-ibm-purple' },
-                { icon: Table, label: 'Import a spreadsheet', desc: 'Use CSV or Excel as knowledge', to: '/app/knowledge/new', color: 'text-ibm-cyan' },
+                { icon: FileText, label: 'Upload a PDF', desc: 'Create an agent from a document',         to: '/app/knowledge/new', color: 'text-violet-400' },
+                { icon: Globe, label: 'Add a website', desc: 'Index a documentation site', to: '/app/knowledge/new', color: 'text-emerald-400' },
+                { icon: Code, label: 'Connect a repository', desc: 'Add a GitHub or local codebase', to: '/app/knowledge/new', color: 'text-purple-400' },
+                { icon: Table, label: 'Import a spreadsheet', desc: 'Use CSV or Excel as knowledge', to: '/app/knowledge/new', color: 'text-cyan-400' },
               ].map(item => (
                 <button
                   key={item.label}
@@ -143,7 +143,7 @@ export default function Dashboard() {
 
           <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5">
             <h2 className="text-sm font-semibold mb-4 flex items-center gap-2">
-              <Clock size={14} className="text-ibm-blue" />
+              <Clock size={14} className="text-violet-400" />
               Recent Activity
             </h2>
             {history.length === 0 ? (
@@ -162,9 +162,9 @@ export default function Dashboard() {
                       if (item.agent_id) navigate(item.agent_id.startsWith('kb_') ? `/app/knowledge/${item.agent_id}` : `/app/chat/${item.agent_id}`)
                     }}
                   >
-                    <div className={`w-6 h-6 rounded flex items-center justify-center shrink-0 ${item.role === 'user' ? 'bg-ibm-blue/10' : 'bg-zinc-800'}`}>
+                    <div className={`w-6 h-6 rounded flex items-center justify-center shrink-0 ${item.role === 'user' ? 'bg-violet-600/10' : 'bg-zinc-800'}`}>
                       {item.role === 'user' ? (
-                        <MessageSquare size={10} className="text-ibm-blue" />
+                        <MessageSquare size={10} className="text-violet-400" />
                       ) : (
                         <Bot size={10} className="text-zinc-400" />
                       )}
@@ -185,7 +185,7 @@ export default function Dashboard() {
         {knowledgeAgents.length > 0 && (
           <div className="mt-8 rounded-xl border border-zinc-800 bg-zinc-950/40 p-5">
             <h2 className="text-sm font-semibold mb-4 flex items-center gap-2">
-              <Brain size={14} className="text-ibm-blue" />
+              <Brain size={14} className="text-violet-400" />
               Your Knowledge Agents
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -195,8 +195,8 @@ export default function Dashboard() {
                   className="flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-950/60 p-3 cursor-pointer hover:border-zinc-600 transition"
                   onClick={() => navigate(`/app/knowledge/${agent.id}`)}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-ibm-blue/10 border border-ibm-blue/20 flex items-center justify-center">
-                    <Bot size={14} className="text-ibm-blue" />
+                  <div className="w-8 h-8 rounded-lg bg-violet-600/10 border border-violet-500/20 flex items-center justify-center">
+                    <Bot size={14} className="text-violet-400" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium truncate">{agent.name}</p>

@@ -69,16 +69,16 @@ const CATEGORY_THEMES = {
     gradient: 'from-gray-600/15 via-transparent to-transparent',
     border: 'border-gray-700/50',
     text: 'text-gray-300',
-    accent: 'bg-ibm-blue hover:bg-blue-700',
+    accent: 'bg-violet-600 hover:bg-violet-500',
     bubble: 'bg-gray-900/50 border-gray-800 text-gray-100',
   },
   custom: {
-    badge: 'text-ibm-blue bg-ibm-blue/10 border-ibm-blue/25',
-    gradient: 'from-ibm-blue/20 via-transparent to-transparent',
-    border: 'border-ibm-blue/30',
-    text: 'text-ibm-blue',
-    accent: 'bg-ibm-blue hover:bg-blue-700',
-    bubble: 'bg-blue-950/30 border-blue-900/20 text-blue-100',
+    badge: 'text-violet-400 bg-violet-600/10 border-violet-500/25',
+    gradient: 'from-violet-500/20 via-transparent to-transparent',
+    border: 'border-violet-500/30',
+    text: 'text-violet-400',
+    accent: 'bg-violet-600 hover:bg-violet-500',
+    bubble: 'bg-violet-950/30 border-violet-900/20 text-violet-100',
   },
 }
 
@@ -305,7 +305,7 @@ export default function ChatPlayground() {
   if (loadingAgent) {
     return (
       <div className="flex h-screen w-full flex-col items-center justify-center bg-gray-950 text-gray-400">
-        <Loader2 className="animate-spin text-ibm-blue mb-4" size={36} />
+        <Loader2 className="animate-spin text-violet-400 mb-4" size={36} />
         <p className="text-sm font-medium">Entering agent playground...</p>
       </div>
     )
@@ -336,7 +336,7 @@ export default function ChatPlayground() {
               </div>
               <div className="min-w-0">
                 <h2 className="text-sm font-bold text-white truncate">{agent.name}</h2>
-                <p className="text-[11px] text-gray-500">Opal AI Agent</p>
+                <p className="text-[11px] text-gray-500">AgentForge AI</p>
               </div>
             </div>
             <p className="text-xs text-gray-400 mt-3 leading-relaxed">{agent.description || 'Custom chatbot agent.'}</p>
@@ -371,7 +371,7 @@ export default function ChatPlayground() {
                     key={tool}
                     className="badge bg-gray-900 text-gray-300 border border-gray-800 flex items-center gap-1"
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-ibm-teal" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                     {tool.replace('_mcp', '')}
                   </span>
                 ))}
@@ -462,7 +462,7 @@ export default function ChatPlayground() {
                       <div
                         className={`rounded-2xl px-4 py-3 text-xs leading-relaxed border shadow-sm ${
                           isUser
-                            ? 'bg-ibm-blue border-ibm-blue/40 text-white rounded-tr-none'
+                            ? 'bg-violet-600 border-violet-500/40 text-white rounded-tr-none'
                             : 'bg-gray-900/70 border-gray-800/60 text-gray-200 rounded-tl-none'
                         }`}
                       >
@@ -480,8 +480,8 @@ export default function ChatPlayground() {
 
                     {/* User Avatar */}
                     {isUser && (
-                      <div className="w-8 h-8 rounded-lg bg-ibm-blue/15 border border-ibm-blue/25 flex items-center justify-center shrink-0">
-                        <User size={15} className="text-ibm-blue" />
+                      <div className="w-8 h-8 rounded-lg bg-violet-600/15 border border-violet-500/25 flex items-center justify-center shrink-0">
+                        <User size={15} className="text-violet-400" />
                       </div>
                     )}
                   </div>
@@ -504,7 +504,7 @@ export default function ChatPlayground() {
                       step.status === 'done'
                         ? 'text-green-400 bg-green-500/10 border-green-500/20'
                         : step.status === 'active'
-                          ? 'text-ibm-blue bg-ibm-blue/10 border-ibm-blue/20'
+                          ? 'text-violet-400 bg-violet-600/10 border-violet-500/20'
                           : 'text-gray-600 bg-gray-950 border-gray-900'
 
                     return (
@@ -542,13 +542,13 @@ export default function ChatPlayground() {
           <div className="max-w-4xl mx-auto">
             {/* Parsed document details */}
             {parsedDoc && (
-              <div className="mb-2 flex items-center justify-between rounded-lg border border-ibm-teal/30 bg-ibm-teal/5 px-3 py-1.5 text-xs text-ibm-teal">
+              <div className="mb-2 flex items-center justify-between rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-1.5 text-xs text-emerald-400">
                 <span className="flex items-center gap-1.5 font-medium">
                   <FileText size={14} /> Attached: {parsedDoc.filename} (+{parsedDoc.text?.length || 0} parsed characters)
                 </span>
                 <button
                   onClick={() => setParsedDoc(null)}
-                  className="text-ibm-teal hover:text-teal-300"
+                  className="text-emerald-400 hover:text-emerald-300"
                 >
                   <X size={14} />
                 </button>
@@ -556,7 +556,7 @@ export default function ChatPlayground() {
             )}
 
             {/* Input elements */}
-            <div className="relative flex items-center rounded-xl border border-gray-850 bg-gray-900/60 p-1.5 pr-2 focus-within:ring-2 focus-within:ring-ibm-blue/50 focus-within:border-transparent transition-all">
+            <div className="relative flex items-center rounded-xl border border-gray-850 bg-gray-900/60 p-1.5 pr-2 focus-within:ring-2 focus-within:ring-violet-500/50 focus-within:border-transparent transition-all">
               <button
                 type="button"
                 disabled={isLoading || uploading}
@@ -565,7 +565,7 @@ export default function ChatPlayground() {
                 title="Attach Document via IBM Docling"
               >
                 {uploading ? (
-                  <Loader2 className="animate-spin text-ibm-teal" size={18} />
+                  <Loader2 className="animate-spin text-emerald-400" size={18} />
                 ) : (
                   <Paperclip size={18} />
                 )}

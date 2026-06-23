@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { knowledgeAPI } from '../services/api'
 import {
@@ -29,7 +29,7 @@ export default function KnowledgeSearchPanel() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0e1014] text-white p-6">
+    <div className="min-h-screen bg-[#0f0f11] text-white p-6">
       <div className="max-w-4xl mx-auto">
         <button onClick={() => navigate('/app/knowledge')} className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white mb-4 transition">
           <ArrowLeft size={16} />
@@ -73,7 +73,7 @@ export default function KnowledgeSearchPanel() {
               <div key={i} className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-4">
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-lg bg-zinc-950 border border-zinc-800 flex items-center justify-center shrink-0">
-                    <Hash size={14} className="text-ibm-blue" />
+                    <Hash size={14} className="text-violet-400" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-zinc-200 leading-relaxed mb-2">{r.content?.slice(0, 500)}</p>

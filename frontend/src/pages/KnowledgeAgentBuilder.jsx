@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+﻿import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { knowledgeAPI } from '../services/api'
 import {
@@ -8,10 +8,10 @@ import {
 } from 'lucide-react'
 
 const sourceTypes = [
-  { id: 'document', icon: FileText, label: 'Documents', desc: 'PDF, DOCX, TXT, MD files', color: 'border-ibm-blue text-ibm-blue bg-ibm-blue/10' },
-  { id: 'repository', icon: Code, label: 'Repository', desc: 'GitHub, GitLab, or local folder', color: 'border-ibm-purple text-ibm-purple bg-ibm-purple/10' },
-  { id: 'website', icon: Globe, label: 'Website', desc: 'URL, documentation site', color: 'border-ibm-teal text-ibm-teal bg-ibm-teal/10' },
-  { id: 'spreadsheet', icon: Table, label: 'Spreadsheet', desc: 'CSV, Excel files', color: 'border-ibm-cyan text-ibm-cyan bg-ibm-cyan/10' },
+  { id: 'document', icon: FileText, label: 'Documents', desc: 'PDF, DOCX, TXT, MD files', color: 'border-violet-500 text-violet-400 bg-violet-600/10' },
+  { id: 'repository', icon: Code, label: 'Repository', desc: 'GitHub, GitLab, or local folder', color: 'border-violet-500 text-purple-400 bg-violet-600/10' },
+  { id: 'website', icon: Globe, label: 'Website', desc: 'URL, documentation site', color: 'border-emerald-500 text-emerald-400 bg-emerald-500/10' },
+  { id: 'spreadsheet', icon: Table, label: 'Spreadsheet', desc: 'CSV, Excel files', color: 'border-cyan-500 text-cyan-400 bg-cyan-500/10' },
 ]
 
 export default function KnowledgeAgentBuilder() {
@@ -116,7 +116,7 @@ export default function KnowledgeAgentBuilder() {
 
   if (createdAgent) {
     return (
-      <div className="min-h-screen bg-[#0e1014] text-white p-6 flex items-center justify-center">
+      <div className="min-h-screen bg-[#0f0f11] text-white p-6 flex items-center justify-center">
         <div className="max-w-md text-center">
           <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-4">
             <CheckCircle2 size={32} className="text-green-400" />
@@ -138,7 +138,7 @@ export default function KnowledgeAgentBuilder() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0e1014] text-white">
+    <div className="min-h-screen bg-[#0f0f11] text-white">
       <div className="max-w-4xl mx-auto p-6">
         <button onClick={() => navigate('/app/knowledge')} className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white mb-6 transition">
           <ArrowLeft size={16} />
@@ -146,8 +146,8 @@ export default function KnowledgeAgentBuilder() {
         </button>
 
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-ibm-blue/10 border border-ibm-blue/20 flex items-center justify-center">
-            <Brain size={20} className="text-ibm-blue" />
+          <div className="w-10 h-10 rounded-xl bg-violet-600/10 border border-violet-500/20 flex items-center justify-center">
+            <Brain size={20} className="text-violet-400" />
           </div>
           <div>
             <h1 className="text-xl font-bold">Create Knowledge Agent</h1>
@@ -215,10 +215,10 @@ export default function KnowledgeAgentBuilder() {
               <div className="space-y-2">
                 {selectedSources.map(source => (
                   <div key={source.id} className="flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-950/60 p-3">
-                    {source.type === 'document' ? <FileText size={14} className="text-ibm-blue" /> :
-                     source.type === 'repository' ? <Code size={14} className="text-ibm-purple" /> :
-                     source.type === 'website' ? <Globe size={14} className="text-ibm-teal" /> :
-                     <Table size={14} className="text-ibm-cyan" />}
+                    {source.type === 'document' ? <FileText size={14} className="text-violet-400" /> :
+                     source.type === 'repository' ? <Code size={14} className="text-purple-400" /> :
+                     source.type === 'website' ? <Globe size={14} className="text-emerald-400" /> :
+                     <Table size={14} className="text-cyan-400" />}
                     {source.file ? (
                       <span className="flex-1 text-xs truncate">{source.file.name}</span>
                     ) : source.type === 'website' ? (
@@ -226,21 +226,21 @@ export default function KnowledgeAgentBuilder() {
                         value={source.url}
                         onChange={e => updateSource(source.id, { url: e.target.value, name: e.target.value })}
                         placeholder="https://docs.example.com"
-                        className="flex-1 bg-transparent text-xs border-b border-zinc-700 focus:border-ibm-blue outline-none px-1 py-0.5"
+                        className="flex-1 bg-transparent text-xs border-b border-zinc-700 focus:border-violet-500 outline-none px-1 py-0.5"
                       />
                     ) : source.type === 'repository' ? (
                       <input
                         value={source.url || source.path}
                         onChange={e => updateSource(source.id, { url: e.target.value, name: e.target.value })}
                         placeholder="GitHub URL or local path"
-                        className="flex-1 bg-transparent text-xs border-b border-zinc-700 focus:border-ibm-blue outline-none px-1 py-0.5"
+                        className="flex-1 bg-transparent text-xs border-b border-zinc-700 focus:border-violet-500 outline-none px-1 py-0.5"
                       />
                     ) : (
                       <input
                         value={source.path}
                         onChange={e => updateSource(source.id, { path: e.target.value, name: e.target.value })}
                         placeholder="File path"
-                        className="flex-1 bg-transparent text-xs border-b border-zinc-700 focus:border-ibm-blue outline-none px-1 py-0.5"
+                        className="flex-1 bg-transparent text-xs border-b border-zinc-700 focus:border-violet-500 outline-none px-1 py-0.5"
                       />
                     )}
                     <span className="text-[10px] text-zinc-500 uppercase">{source.type}</span>
@@ -256,18 +256,18 @@ export default function KnowledgeAgentBuilder() {
           {progress && (
             <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5">
               <div className="flex items-center gap-2 text-sm mb-2">
-                <Loader2 className="animate-spin text-ibm-blue" size={16} />
+                <Loader2 className="animate-spin text-violet-400" size={16} />
                 <span>Indexing sources... {progress.current}/{progress.total}</span>
               </div>
               <div className="h-2 rounded-full bg-zinc-800 overflow-hidden">
-                <div className="h-full rounded-full bg-ibm-blue transition-all" style={{ width: `${(progress.current / progress.total) * 100}%` }} />
+                <div className="h-full rounded-full bg-violet-600 transition-all" style={{ width: `${(progress.current / progress.total) * 100}%` }} />
               </div>
               {progress.message && <p className="text-xs text-zinc-500 mt-1">{progress.message}</p>}
             </div>
           )}
         </div>
 
-        <div className="fixed bottom-0 left-0 right-0 border-t border-zinc-800 bg-[#0e1014]/95 backdrop-blur p-4 z-10">
+        <div className="fixed bottom-0 left-0 right-0 border-t border-zinc-800 bg-[#0f0f11]/95 backdrop-blur p-4 z-10">
           <div className="max-w-4xl mx-auto flex items-center gap-4">
             <div className="flex-1 min-w-0">
               {selectedSources.length > 0 && (

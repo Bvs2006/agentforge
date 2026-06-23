@@ -50,7 +50,7 @@ export default function Layout() {
       <aside className="w-60 flex flex-col bg-gray-950 border-r border-gray-800/60 shrink-0">
         <div className="px-5 py-5 border-b border-gray-800/60">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-ibm-blue to-ibm-purple flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-violet-400 flex items-center justify-center">
               <Sparkles size={16} className="text-white" />
             </div>
             <div>
@@ -75,7 +75,7 @@ export default function Layout() {
                     className={({ isActive }) =>
                       `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 group ${
                         isActive
-                          ? 'bg-ibm-blue/15 text-ibm-blue border border-ibm-blue/25'
+                          ? 'bg-violet-600/15 text-violet-400 border border-violet-500/25'
                           : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/60'
                       }`
                     }
@@ -92,7 +92,7 @@ export default function Layout() {
 
         <div className="px-3 pb-4 border-t border-gray-800/60 pt-3">
           <div className="flex items-center gap-3 px-2 py-2">
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-ibm-blue to-ibm-purple flex items-center justify-center text-white text-xs font-bold">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-violet-400 flex items-center justify-center text-white text-xs font-bold">
               {user?.username?.[0]?.toUpperCase() || 'U'}
             </div>
             <div className="flex-1 min-w-0">

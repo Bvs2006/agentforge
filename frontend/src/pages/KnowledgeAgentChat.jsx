@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+﻿import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { knowledgeAPI } from '../services/api'
 import {
@@ -8,10 +8,10 @@ import {
 } from 'lucide-react'
 
 const sourceTypeMeta = {
-  document: { icon: FileText, color: 'text-ibm-blue' },
-  repository: { icon: Code, color: 'text-ibm-purple' },
-  website: { icon: Globe, color: 'text-ibm-teal' },
-  spreadsheet: { icon: Table, color: 'text-ibm-cyan' },
+  document: { icon: FileText, color: 'text-violet-400' },
+  repository: { icon: Code, color: 'text-purple-400' },
+  website: { icon: Globe, color: 'text-emerald-400' },
+  spreadsheet: { icon: Table, color: 'text-cyan-400' },
 }
 
 export default function KnowledgeAgentChat() {
@@ -72,8 +72,8 @@ export default function KnowledgeAgentChat() {
 
   if (agentLoading) {
     return (
-      <div className="min-h-screen bg-[#0e1014] flex items-center justify-center">
-        <Loader2 className="animate-spin text-ibm-blue" size={24} />
+      <div className="min-h-screen bg-[#0f0f11] flex items-center justify-center">
+        <Loader2 className="animate-spin text-violet-400" size={24} />
       </div>
     )
   }
@@ -84,7 +84,7 @@ export default function KnowledgeAgentChat() {
   const failedSources = sources.filter(s => s.status === 'failed')
 
   return (
-    <div className="flex h-screen bg-[#0e1014] text-white">
+    <div className="flex h-screen bg-[#0f0f11] text-white">
       <aside className="w-72 border-r border-zinc-800 bg-zinc-950/40 flex flex-col shrink-0">
         <div className="p-4 border-b border-zinc-800">
           <button onClick={() => navigate('/app/knowledge')} className="flex items-center gap-2 text-xs text-zinc-400 hover:text-white mb-3">
@@ -92,8 +92,8 @@ export default function KnowledgeAgentChat() {
             Knowledge Workspace
           </button>
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-ibm-blue/10 border border-ibm-blue/20 flex items-center justify-center">
-              <Bot size={18} className="text-ibm-blue" />
+            <div className="w-9 h-9 rounded-lg bg-violet-600/10 border border-violet-500/20 flex items-center justify-center">
+              <Bot size={18} className="text-violet-400" />
             </div>
             <div className="min-w-0">
               <h2 className="text-sm font-semibold truncate">{agent.name}</h2>
@@ -134,11 +134,11 @@ export default function KnowledgeAgentChat() {
           <h3 className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider mb-2">Stats</h3>
           <div className="grid grid-cols-2 gap-2 text-[11px]">
             <div className="rounded-lg bg-zinc-950/60 border border-zinc-800 p-2 text-center">
-              <div className="text-ibm-blue font-bold">{completedSources.length}</div>
+              <div className="text-violet-400 font-bold">{completedSources.length}</div>
               <div className="text-zinc-500 text-[9px]">Sources Ready</div>
             </div>
             <div className="rounded-lg bg-zinc-950/60 border border-zinc-800 p-2 text-center">
-              <div className="text-ibm-teal font-bold">{sources.reduce((a, s) => a + (s.chunks_count || 0), 0)}</div>
+              <div className="text-emerald-400 font-bold">{sources.reduce((a, s) => a + (s.chunks_count || 0), 0)}</div>
               <div className="text-zinc-500 text-[9px]">Chunks</div>
             </div>
           </div>
@@ -155,7 +155,7 @@ export default function KnowledgeAgentChat() {
       <section className="flex-1 flex flex-col min-w-0">
         <header className="h-12 border-b border-zinc-800 flex items-center justify-between px-5 bg-zinc-950/30">
           <div className="flex items-center gap-2 text-xs text-zinc-400">
-            <MessageSquare size={14} className="text-ibm-blue" />
+            <MessageSquare size={14} className="text-violet-400" />
             <span>Ask anything about your knowledge base</span>
           </div>
           <button
@@ -170,8 +170,8 @@ export default function KnowledgeAgentChat() {
         <div className="flex-1 overflow-y-auto p-6">
           {messages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center max-w-lg mx-auto">
-              <div className="w-12 h-12 rounded-2xl bg-ibm-blue/10 border border-ibm-blue/20 flex items-center justify-center mb-4">
-                <Brain size={24} className="text-ibm-blue" />
+              <div className="w-12 h-12 rounded-2xl bg-violet-600/10 border border-violet-500/20 flex items-center justify-center mb-4">
+                <Brain size={24} className="text-violet-400" />
               </div>
               <h2 className="text-base font-semibold mb-2">{agent.name}</h2>
               <p className="text-sm text-zinc-400 mb-6">
@@ -199,15 +199,15 @@ export default function KnowledgeAgentChat() {
               {messages.map((msg, i) => (
                 <div key={i} className={`flex items-start gap-3 ${msg.role === 'user' ? 'justify-end' : ''}`}>
                   {msg.role === 'assistant' && (
-                    <div className="w-8 h-8 rounded-lg bg-ibm-blue/10 border border-ibm-blue/20 flex items-center justify-center shrink-0">
-                      <Bot size={16} className="text-ibm-blue" />
+                    <div className="w-8 h-8 rounded-lg bg-violet-600/10 border border-violet-500/20 flex items-center justify-center shrink-0">
+                      <Bot size={16} className="text-violet-400" />
                     </div>
                   )}
 
                   <div className={`max-w-[75%] ${msg.role === 'user' ? 'order-first' : ''}`}>
                     <div className={`rounded-xl px-4 py-3 text-sm leading-relaxed border ${
                       msg.role === 'user'
-                        ? 'bg-ibm-blue border-ibm-blue/40 text-white rounded-tr-none'
+                        ? 'bg-violet-600 border-violet-500/40 text-white rounded-tr-none'
                         : 'bg-zinc-900/60 border-zinc-800/60 text-zinc-200 rounded-tl-none'
                     }`}>
                       <div className="whitespace-pre-wrap break-words">{msg.content}</div>
@@ -221,9 +221,9 @@ export default function KnowledgeAgentChat() {
                         </div>
                         {msg.sources.map((src, si) => (
                           <div key={si} className="flex items-center gap-1.5 text-[10px] text-zinc-500 bg-zinc-950/40 rounded px-2 py-1">
-                            {src.source_type === 'website' ? <Globe size={10} className="text-ibm-teal" /> :
-                             src.source_type === 'repository' ? <Code size={10} className="text-ibm-purple" /> :
-                             <FileText size={10} className="text-ibm-blue" />}
+                            {src.source_type === 'website' ? <Globe size={10} className="text-emerald-400" /> :
+                             src.source_type === 'repository' ? <Code size={10} className="text-purple-400" /> :
+                             <FileText size={10} className="text-violet-400" />}
                             <span className="truncate">{src.filename || src.source_type}</span>
                             <span className="ml-auto opacity-50">{(src.score * 100).toFixed(0)}%</span>
                           </div>
@@ -237,8 +237,8 @@ export default function KnowledgeAgentChat() {
                   </div>
 
                   {msg.role === 'user' && (
-                    <div className="w-8 h-8 rounded-lg bg-ibm-blue/15 border border-ibm-blue/25 flex items-center justify-center shrink-0">
-                      <User size={16} className="text-ibm-blue" />
+                    <div className="w-8 h-8 rounded-lg bg-violet-600/15 border border-violet-500/25 flex items-center justify-center shrink-0">
+                      <User size={16} className="text-violet-400" />
                     </div>
                   )}
                 </div>
@@ -246,8 +246,8 @@ export default function KnowledgeAgentChat() {
 
               {loading && (
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-ibm-blue/10 border border-ibm-blue/20 flex items-center justify-center">
-                    <Bot size={16} className="text-ibm-blue" />
+                  <div className="w-8 h-8 rounded-lg bg-violet-600/10 border border-violet-500/20 flex items-center justify-center">
+                    <Bot size={16} className="text-violet-400" />
                   </div>
                   <div className="rounded-xl bg-zinc-900/60 border border-zinc-800/60 px-4 py-3">
                     <div className="flex items-center gap-2 text-sm text-zinc-400">
@@ -270,12 +270,12 @@ export default function KnowledgeAgentChat() {
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter' && !loading) handleSend() }}
               placeholder="Ask a question about your knowledge base..."
-              className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-ibm-blue transition"
+              className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500 transition"
             />
             <button
               onClick={handleSend}
               disabled={!input.trim() || loading}
-              className="h-10 w-10 rounded-xl bg-ibm-blue flex items-center justify-center disabled:opacity-40 hover:bg-blue-600 transition"
+              className="h-10 w-10 rounded-xl bg-violet-600 flex items-center justify-center disabled:opacity-40 hover:bg-violet-500 transition"
             >
               {loading ? <Loader2 className="animate-spin" size={16} /> : <Send size={16} />}
             </button>

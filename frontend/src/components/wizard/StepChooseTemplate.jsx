@@ -33,14 +33,14 @@ export default function StepChooseTemplate() {
               onClick={() => handleSelect(t)}
               className={`text-left p-4 rounded-xl border transition-all duration-200 ${
                 sel
-                  ? 'border-ibm-blue bg-ibm-blue/10 shadow-lg shadow-blue-900/20'
+                  ? 'border-violet-500 bg-violet-600/10 shadow-lg shadow-violet-900/20'
                   : 'border-gray-700/60 bg-gray-900/50 hover:border-gray-600 hover:bg-gray-800/40'
               }`}
             >
               <div className="flex items-start justify-between mb-3">
                 <span className="text-2xl">{t.icon}</span>
                 {sel && (
-                  <div className="w-5 h-5 rounded-full bg-ibm-blue flex items-center justify-center">
+                  <div className="w-5 h-5 rounded-full bg-violet-600 flex items-center justify-center">
                     <Check size={11} className="text-white" />
                   </div>
                 )}

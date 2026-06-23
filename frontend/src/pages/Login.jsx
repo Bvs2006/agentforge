@@ -32,7 +32,7 @@ export default function Login() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-ibm-blue to-ibm-purple flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-900/30">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-violet-400 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-violet-900/30">
             <Zap size={28} className="text-white" />
           </div>
           <h1 className="text-2xl font-bold text-white">Welcome back</h1>
@@ -82,7 +82,7 @@ export default function Login() {
 
           <p className="text-center text-sm text-gray-500 mt-5">
             No account?{' '}
-            <Link to="/register" className="text-ibm-blue hover:text-blue-400 font-medium">
+            <Link to="/register" className="text-violet-400 hover:text-violet-400 font-medium">
               Create one
             </Link>
           </p>

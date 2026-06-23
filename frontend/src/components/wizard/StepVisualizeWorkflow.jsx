@@ -46,7 +46,7 @@ export default function StepVisualizeWorkflow() {
 
       <div className="card mb-5 overflow-hidden">
         <div className="flex items-center gap-2 mb-4">
-          <GitBranch size={15} className="text-ibm-teal" />
+          <GitBranch size={15} className="text-emerald-400" />
           <span className="text-sm font-medium text-gray-300">Execution Graph</span>
           <span className="ml-auto badge bg-gray-800 text-gray-400 border border-gray-700">{nodes.length} nodes · {edges.length} edges</span>
         </div>

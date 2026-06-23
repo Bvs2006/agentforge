@@ -19,7 +19,7 @@ export default function Login() {
       setToken(res.data.access_token)
       const me = await authAPI.me()
       setUser(me.data)
-      navigate('/')
+      navigate('/app/dashboard')
     } catch (err) {
       setError(err.response?.data?.detail || 'Login failed')
     } finally {
@@ -89,7 +89,7 @@ export default function Login() {
         </div>
 
         <p className="text-center text-xs text-gray-600 mt-6">
-          Powered by IBM Granite · Langflow · MCP
+          AgentForge AI Platform
         </p>
       </div>
     </div>

@@ -3,15 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { useStore } from '../hooks/useStore'
 import { agentAPI, platformAPI } from '../services/api'
 import {
-  ArrowRight,
   Bot,
-  Boxes,
   Calendar,
   Check,
-  Code2,
   FileText,
   Github,
   Mail,
+  MessageSquare,
   Plus,
   Play,
   Search,
@@ -182,17 +180,12 @@ export default function Agents() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto animate-fade-in">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between mb-7">
-        <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-ibm-teal mb-2">Agent Builder</p>
-          <h1 className="text-2xl font-bold text-white">Build agents from templates or scratch</h1>
-          <p className="text-gray-400 text-sm mt-1">
-            Start with built-in agents, tune their MCP tools, or create a custom automation agent.
-          </p>
-        </div>
-        <button onClick={() => navigate('/run')} className="btn-secondary w-fit">
-          <Play size={16} /> Run a task
-        </button>
+      <div className="mb-7">
+        <p className="text-xs uppercase tracking-[0.18em] text-ibm-teal mb-2">Agent Builder</p>
+        <h1 className="text-2xl font-bold text-white">Build agents from templates or scratch</h1>
+        <p className="text-gray-400 text-sm mt-1">
+          Start with built-in agents, tune their MCP tools, or create a custom automation agent.
+        </p>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-[1.35fr_0.9fr] gap-5">
@@ -233,15 +226,15 @@ export default function Agents() {
                           : 'border-gray-800 bg-gray-900/45 hover:bg-gray-800/60 hover:border-gray-700'
                       }`}
                     >
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="w-9 h-9 rounded-lg bg-gray-950 border border-gray-800 flex items-center justify-center">
-                          <Icon size={17} className={active ? 'text-ibm-blue' : 'text-gray-300'} />
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 rounded-lg bg-gray-950 border border-gray-800 flex items-center justify-center shrink-0">
+                          <Icon size={16} className={active ? 'text-ibm-blue' : 'text-gray-300'} />
                         </div>
-                        {active && <Check size={16} className="text-ibm-blue" />}
+                        <h3 className="font-semibold text-white text-sm leading-tight">{template.name}</h3>
+                        {active && <Check size={14} className="text-ibm-blue ml-auto shrink-0" />}
                       </div>
-                      <h3 className="font-semibold text-white text-sm">{template.name}</h3>
-                      <p className="text-xs text-gray-400 leading-relaxed mt-1 min-h-10">{template.description}</p>
-                      <div className="flex flex-wrap gap-1.5 mt-3">
+                      <p className="text-xs text-gray-400 leading-relaxed">{template.description}</p>
+                      <div className="flex flex-wrap gap-1 mt-3">
                         <span className={`badge border ${style}`}>{template.category}</span>
                         {(template.tools || []).map(tool => (
                           <span key={tool} className="badge bg-gray-800 text-gray-400 border border-gray-700">
@@ -298,55 +291,50 @@ export default function Agents() {
                 <p className="text-xs text-gray-600 mt-1">Pick a built-in agent or create a custom one to begin.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              <div className="divide-y divide-gray-800/60">
                 {filteredAgents.map(agent => (
-                  <div key={agent.id || agent.name} className="rounded-lg border border-gray-800 bg-gray-900/45 p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-ibm-blue/10 flex items-center justify-center shrink-0">
-                        <Bot size={17} className="text-ibm-blue" />
+                  <div
+                    key={agent.id || agent.name}
+                    className="flex items-center gap-3 py-3 px-2 rounded-lg cursor-pointer hover:bg-gray-800/40 transition-all duration-200 -mx-2"
+                    onClick={() => navigate(`/app/chat/${agent.name}`)}
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-ibm-blue/10 flex items-center justify-center shrink-0">
+                      <Bot size={15} className="text-ibm-blue" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-sm font-medium text-white truncate">{agent.name}</h3>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-[10px] text-gray-500">{agent.template_id || 'custom'}</span>
+                        <span className="text-gray-700">·</span>
+                        <span className="text-[10px] text-gray-500">{(agent.tools || []).length} tools</span>
+                        {agent.created_at && (
+                          <>
+                            <span className="text-gray-700">·</span>
+                            <span className="text-[10px] text-gray-600">{new Date(agent.created_at).toLocaleDateString()}</span>
+                          </>
+                        )}
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-start justify-between gap-2">
-                          <div>
-                            <h3 className="font-semibold text-white text-sm truncate">{agent.name}</h3>
-                            <p className="text-xs text-gray-400 mt-1 line-clamp-2">{agent.description || 'No description'}</p>
-                          </div>
-                          <button
-                            onClick={() => deleteAgent(agent.name)}
-                            className="btn-ghost p-1.5"
-                            title="Delete agent"
-                          >
-                            <Trash2 size={14} />
-                          </button>
-                        </div>
-
-                        <div className="flex flex-wrap gap-1.5 mt-3">
-                          <span className="badge bg-ibm-blue/10 text-ibm-blue border border-ibm-blue/25">
-                            {agent.template_id || 'custom_agent'}
-                          </span>
-                          {(agent.tools || []).map(tool => (
-                            <span key={tool} className="badge bg-gray-800 text-gray-400 border border-gray-700">
-                              {TOOL_LABELS[tool] || tool.replace('_mcp', '')}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="flex items-center justify-between mt-4">
-                          <div className="flex items-center gap-3 text-xs text-gray-600">
-                            <span className="inline-flex items-center gap-1">
-                              <Calendar size={11} />
-                              {agent.created_at ? new Date(agent.created_at).toLocaleDateString() : 'Draft'}
-                            </span>
-                            <span className="inline-flex items-center gap-1">
-                              <Wrench size={11} />
-                              {(agent.tools || []).length} tools
-                            </span>
-                          </div>
-                          <button onClick={() => navigate('/run')} className="btn-primary text-xs px-3 py-1.5">
-                            <Play size={12} /> Run
-                          </button>
-                        </div>
-                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); navigate(`/app/chat/${agent.name}`) }}
+                        className="btn-primary text-[11px] px-2.5 py-1.5"
+                      >
+                        <MessageSquare size={11} /> Chat
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); navigate('/app/run') }}
+                        className="btn-secondary text-[11px] px-2.5 py-1.5"
+                      >
+                        <Play size={11} />
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); deleteAgent(agent.name) }}
+                        className="btn-ghost p-1.5 text-gray-600 hover:text-red-400"
+                        title="Delete agent"
+                      >
+                        <Trash2 size={12} />
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -392,7 +380,7 @@ export default function Agents() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-xs text-gray-400 font-medium block">MCP tools</label>
-                <button onClick={() => navigate('/mcp')} className="text-xs text-ibm-blue hover:underline">
+                <button onClick={() => navigate('/app/mcp')} className="text-xs text-ibm-blue hover:underline">
                   Manage MCP
                 </button>
               </div>
@@ -440,21 +428,6 @@ export default function Agents() {
                   <option value="verbose">Verbose</option>
                 </select>
               </div>
-            </div>
-          </div>
-
-          <div className="rounded-lg border border-gray-800 bg-gray-950/45 p-3 mt-5">
-            <div className="flex items-center gap-2 mb-2">
-              <Boxes size={14} className="text-ibm-teal" />
-              <span className="text-xs font-medium text-gray-300">Build workflow</span>
-            </div>
-            <div className="flex items-center gap-2 flex-wrap">
-              {['Prompt', 'Plan', `${builder.tools.length} MCP`, 'Execute', 'Result'].map((label, index) => (
-                <div key={label} className="flex items-center gap-2">
-                  <span className="px-2 py-1 rounded border border-gray-800 bg-gray-900 text-[11px] text-gray-400">{label}</span>
-                  {index < 4 && <ArrowRight size={12} className="text-gray-700" />}
-                </div>
-              ))}
             </div>
           </div>
 

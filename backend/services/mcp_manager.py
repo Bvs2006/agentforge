@@ -95,6 +95,24 @@ MCP_REGISTRY = {
             {"name": "update_page", "description": "Update an existing page"},
             {"name": "query_database", "description": "Query a Notion database"}
         ]
+    },
+    "knowledge_agent_mcp": {
+        "name": "Knowledge Agent MCP",
+        "description": "Read, search, and query knowledge agents powered by vector databases",
+        "command": "",
+        "args": [],
+        "env_required": [],
+        "icon": "brain",
+        "tools": [
+            {"name": "read_document", "description": "Read and extract content from uploaded documents (PDF, DOCX, TXT, MD)"},
+            {"name": "read_repository", "description": "Clone and extract content from a Git repository"},
+            {"name": "read_spreadsheet", "description": "Read and parse spreadsheet files (CSV, Excel)"},
+            {"name": "read_website", "description": "Scrape and extract content from a website or documentation site"},
+            {"name": "semantic_search", "description": "Search knowledge base using semantic/vector similarity"},
+            {"name": "retrieve_context", "description": "Retrieve relevant context from knowledge base for a query"},
+            {"name": "list_sources", "description": "List all knowledge sources indexed for an agent"},
+            {"name": "agent_status", "description": "Get the status and statistics of a knowledge agent"}
+        ]
     }
 }
 
@@ -172,6 +190,20 @@ async def execute_tool_mock(server_id: str, tool_name: str, arguments: dict) -> 
         "list_directory": {"files": ["report.pdf", "data.csv", "notes.txt"]},
         "search_pages": {"results": [{"title": "Project Roadmap", "id": "page_1"}]},
         "create_issue": {"number": 42, "url": "https://github.com/org/repo/issues/42"},
+        "read_document": {"status": "success", "text": "Document content extracted successfully.", "pages": 5, "format": "pdf"},
+        "read_repository": {"status": "success", "files_processed": 42, "repo": "sample-repo", "total_chars": 150000},
+        "read_spreadsheet": {"status": "success", "sheets": 3, "total_rows": 150, "columns": ["Name", "Value", "Date"]},
+        "read_website": {"status": "success", "pages_crawled": 8, "total_words": 24000, "root_url": "https://example.com"},
+        "semantic_search": {"status": "success", "results": [
+            {"content": "Relevant document chunk...", "score": 0.92, "source": "document.pdf"},
+            {"content": "Another relevant section...", "score": 0.87, "source": "readme.md"}
+        ]},
+        "retrieve_context": {"status": "success", "context": "Extracted context from knowledge base...", "chunks_used": 5},
+        "list_sources": {"sources": [
+            {"id": "src_1", "name": "document.pdf", "type": "document", "status": "completed", "chunks": 25},
+            {"id": "src_2", "name": "https://docs.example.com", "type": "website", "status": "completed", "chunks": 180}
+        ]},
+        "agent_status": {"status": "ready", "sources": 3, "total_chunks": 450, "memory_enabled": True, "created_at": "2024-06-01T00:00:00Z"},
     }
 
     return mock_responses.get(tool_name, {

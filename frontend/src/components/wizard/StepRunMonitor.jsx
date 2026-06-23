@@ -4,10 +4,10 @@ import { agentAPI } from '../../services/api'
 import { ArrowLeft, Loader, CheckCircle, XCircle, Zap } from 'lucide-react'
 
 const STEP_LABELS = [
-  { key: 'Context Loaded',       icon: '🧠', desc: 'Loading user context and memory from Context Forge' },
-  { key: 'Granite Planning',     icon: '⚡', desc: 'IBM Granite AI analyzing task and creating execution plan' },
-  { key: 'MCP Tools Executed',   icon: '🔌', desc: 'Running required MCP tools and collecting results' },
-  { key: 'Workflow Completed',   icon: '✅', desc: 'Langflow orchestrating final workflow execution' },
+  { key: 'Context Loaded',       icon: '🧠', desc: 'Loading user context and memory' },
+  { key: 'AI Planner',           icon: '⚡', desc: 'Analyzing task intent and creating execution pipeline' },
+  { key: 'Connected Tools Run',  icon: '🔌', desc: 'Running required integration tools and collecting results' },
+  { key: 'Task Execution',       icon: '✅', desc: 'Orchestrating final workflow execution and processing results' },
 ]
 
 export default function StepRunMonitor() {

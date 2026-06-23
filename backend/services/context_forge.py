@@ -96,12 +96,13 @@ def delete_agent_config(user_id: str, agent_name: str):
         store.pop(agent_name, None)
 
 
-def store_conversation(user_id: str, role: str, content: str, task_id: Optional[str] = None):
+def store_conversation(user_id: str, role: str, content: str, task_id: Optional[str] = None, agent_id: Optional[str] = None):
     message = {
         "role": role,
         "content": content,
         "timestamp": datetime.utcnow().isoformat(),
-        "task_id": task_id
+        "task_id": task_id,
+        "agent_id": agent_id
     }
     _rpush(f"user:{user_id}:history", json.dumps(message))
 

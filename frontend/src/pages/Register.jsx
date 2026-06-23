@@ -19,7 +19,7 @@ export default function Register() {
       setToken(res.data.access_token)
       const me = await authAPI.me()
       setUser(me.data)
-      navigate('/')
+      navigate('/app/dashboard')
     } catch (err) {
       setError(err.response?.data?.detail || 'Registration failed')
     } finally {

@@ -50,7 +50,7 @@ export default function StepViewResults() {
       {/* Plan */}
       {plan && (
         <div className="card">
-          <h3 className="text-sm font-semibold text-gray-300 mb-3">AI Planning (IBM Granite)</h3>
+          <h3 className="text-sm font-semibold text-gray-300 mb-3">AI Planner Execution Details</h3>
           <div className="space-y-2 text-sm">
             <div className="flex gap-2">
               <span className="text-gray-500 w-24 shrink-0">Intent</span>
@@ -111,7 +111,7 @@ export default function StepViewResults() {
 
       {/* Actions */}
       <div className="flex gap-3 flex-wrap">
-        <button className="btn-secondary" onClick={() => { resetWizard(); navigate('/run') }}>
+        <button className="btn-secondary" onClick={() => { resetWizard(); navigate('/app/run') }}>
           <RotateCcw size={15} /> New Task
         </button>
         {!saved && agentConfig.name && (
@@ -124,7 +124,7 @@ export default function StepViewResults() {
             <CheckCircle size={15} /> Agent saved
           </span>
         )}
-        <button className="btn-primary ml-auto" onClick={() => navigate('/')}>
+        <button className="btn-primary ml-auto" onClick={() => navigate('/app/dashboard')}>
           <Home size={15} /> Dashboard
         </button>
       </div>

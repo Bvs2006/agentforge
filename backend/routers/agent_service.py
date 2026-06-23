@@ -4,6 +4,7 @@ from routers.auth import get_current_user
 from services import granite, langflow_service, mcp_manager, context_forge, docling_service
 import uuid
 from datetime import datetime
+from typing import Optional
 
 router = APIRouter()
 
@@ -16,14 +17,42 @@ async def run_agent_task(request: TaskRequest, current_user: dict = Depends(get_
     started_at = datetime.utcnow().isoformat()
 
     try:
-        # Step 1: Store user message
-        context_forge.store_conversation(user_id, "user", request.task, task_id)
+        # Step 1: Store user message with agent_id if provided
+        context_forge.store_conversation(user_id, "user", request.task, task_id, request.agent_id)
 
         # Step 2: Load user context
         ctx = context_forge.get_user_context(user_id)
 
-        # Step 3: IBM Granite plans the task
-        plan = granite.plan_agent_task(request.task)
+        # Step 3: Check for specific agent config (or draft configuration) or use AI planner
+        agent_config = None
+        if request.context and "agent_config" in request.context:
+            agent_config = request.context["agent_config"]
+        elif request.agent_id:
+            user_agents = context_forge.get_agent_configs(user_id)
+            for name, cfg in user_agents.items():
+                if cfg.get("id") == request.agent_id or name == request.agent_id:
+                    agent_config = cfg
+                    break
+
+        if agent_config:
+            template_id = agent_config.get("template_id", "general_agent")
+            tools = agent_config.get("tools", [])
+            plan = {
+                "intent": f"Running agent '{agent_config['name']}' to handle task",
+                "agent_template": template_id,
+                "steps": [
+                    f"Initiated session with Agent '{agent_config['name']}'",
+                    "Loaded custom instructions & tools",
+                    f"Executing with tools: {', '.join(tools) if tools else 'none'}",
+                    "Synthesized response"
+                ],
+                "tools_needed": tools,
+                "complexity": "medium",
+                "estimated_time": "5-10 seconds",
+                "source": "custom_agent"
+            }
+        else:
+            plan = granite.plan_agent_task(request.task)
 
         # Step 4: Execute required MCP tools
         tool_results = {}
@@ -52,7 +81,7 @@ async def run_agent_task(request: TaskRequest, current_user: dict = Depends(get_
             "flow_id": workflow_result["flow_id"],
             "steps": [
                 {"step": 1, "name": "Context Loaded", "status": "done"},
-                {"step": 2, "name": "Granite Planning", "status": "done", "detail": plan["intent"]},
+                {"step": 2, "name": "Planning & Context Setup", "status": "done", "detail": plan["intent"]},
                 {"step": 3, "name": "MCP Tools Executed", "status": "done", "count": len(tool_results)},
                 {"step": 4, "name": "Workflow Completed", "status": "done"},
             ],
@@ -61,9 +90,9 @@ async def run_agent_task(request: TaskRequest, current_user: dict = Depends(get_
             "source": plan.get("source", "unknown")
         }
 
-        # Step 6: Store result
+        # Step 6: Store result and logs
         context_forge.store_task_result(task_id, result)
-        context_forge.store_conversation(user_id, "assistant", workflow_result["output"], task_id)
+        context_forge.store_conversation(user_id, "assistant", workflow_result["output"], task_id, request.agent_id)
 
         return result
 
@@ -115,9 +144,12 @@ async def delete_agent(agent_name: str, current_user: dict = Depends(get_current
 
 
 @router.get("/history")
-async def get_history(current_user: dict = Depends(get_current_user)):
+async def get_history(agent_id: Optional[str] = None, current_user: dict = Depends(get_current_user)):
     """Get conversation history for current user."""
-    return context_forge.get_conversation_history(current_user["sub"])
+    history = context_forge.get_conversation_history(current_user["sub"])
+    if agent_id:
+        return [m for m in history if m.get("agent_id") == agent_id]
+    return history
 
 
 @router.delete("/history")

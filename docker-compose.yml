@@ -12,6 +12,18 @@ services:
       timeout: 5s
       retries: 5
 
+  chroma:
+    image: chromadb/chroma:latest
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma
+      - ANONYMIZED_TELEMETRY=FALSE
+    restart: unless-stopped
+
   backend:
     build:
       context: ./backend
@@ -23,12 +35,12 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - LANGFLOW_URL=http://langflow:7860
     depends_on:
       redis:
         condition: service_healthy
     volumes:
-      - ./backend:/app
+      - uploads_data:/tmp/agentforge/uploads
+      - chroma_data:/app/data/chroma
     restart: unless-stopped
 
   frontend:
@@ -41,16 +53,8 @@ services:
       - backend
     restart: unless-stopped
 
-  langflow:
-    image: langflowai/langflow:latest
-    ports:
-      - "7860:7860"
-    environment:
-      - LANGFLOW_DATABASE_URL=sqlite:///./langflow.db
-    volumes:
-      - langflow_data:/app/langflow
-    restart: unless-stopped
-
 volumes:
-  langflow_data:
   redis_data:
+  chroma_data:
+  uploads_data:
+  langflow_data:

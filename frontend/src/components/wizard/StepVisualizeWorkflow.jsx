@@ -6,13 +6,13 @@ import { useCallback } from 'react'
 function buildWorkflow(template, taskInput) {
   const nodes = [
     { id: 'input',    label: 'User Input',       icon: '💬', color: '#0f62fe', x: 60,  y: 180 },
-    { id: 'granite',  label: 'IBM Granite AI',   icon: '🧠', color: '#8a3ffc', x: 220, y: 180 },
-    { id: 'langflow', label: 'Langflow Engine',  icon: '⚡', color: '#009d9a', x: 380, y: 180 },
+    { id: 'granite',  label: 'AI Planner',       icon: '🧠', color: '#8a3ffc', x: 220, y: 180 },
+    { id: 'langflow', label: 'Execution Runner',  icon: '⚡', color: '#009d9a', x: 380, y: 180 },
     ...(template?.tools || []).map((t, i) => ({
-      id: `mcp_${i}`, label: t.replace('_mcp', ' MCP'), icon: '🔌', color: '#f59e0b',
+      id: `mcp_${i}`, label: t.replace('_mcp', ' Tool'), icon: '🔌', color: '#f59e0b',
       x: 540, y: 120 + i * 80
     })),
-    { id: 'docling',  label: 'IBM Docling',      icon: '📄', color: '#8a3ffc', x: 540, y: (template?.tools?.length || 0) * 80 + 120 },
+    { id: 'docling',  label: 'Document Parser',  icon: '📄', color: '#8a3ffc', x: 540, y: (template?.tools?.length || 0) * 80 + 120 },
     { id: 'output',   label: 'Results',           icon: '✅', color: '#198038', x: 700, y: 180 },
   ]
 

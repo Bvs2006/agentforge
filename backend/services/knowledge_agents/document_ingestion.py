@@ -1,12 +1,18 @@
 import os
-import io
 import re
 from typing import List, Optional
 from datetime import datetime
 
 from .security import validate_path, validate_file_type, SecurityError
-from .models import KnowledgeSource, SourceType, SourceStatus, Chunk
+from .models import KnowledgeSource, SourceType, Chunk
 
+
+DOCLING_AVAILABLE = False
+try:
+    from docling.document_converter import DocumentConverter
+    DOCLING_AVAILABLE = True
+except ImportError:
+    pass
 
 PDF_AVAILABLE = False
 DOCX_AVAILABLE = False
@@ -29,14 +35,48 @@ except ImportError:
 
 class DocumentIngestion:
     def __init__(self):
+        self._docling_converter = None
         self.supported_types = {
-            ".pdf": self._extract_pdf,
-            ".docx": self._extract_docx,
-            ".doc": self._extract_docx,
+            ".pdf": self._extract_with_docling,
+            ".docx": self._extract_with_docling,
+            ".doc": self._extract_with_docling,
             ".txt": self._extract_text,
             ".md": self._extract_markdown,
             ".mdx": self._extract_markdown,
         }
+        for ext in [".py", ".js", ".ts", ".jsx", ".tsx", ".java", ".go", ".rs",
+                     ".c", ".cpp", ".h", ".hpp", ".rb", ".php", ".swift", ".kt",
+                     ".json", ".yaml", ".yml", ".toml", ".ini", ".cfg",
+                     ".html", ".css", ".scss", ".less",
+                     ".xml", ".svg", ".sql",
+                     ".sh", ".bat", ".ps1"]:
+            self.supported_types[ext] = self._extract_text
+
+    def _get_docling(self):
+        if self._docling_converter is None and DOCLING_AVAILABLE:
+            self._docling_converter = DocumentConverter()
+        return self._docling_converter
+
+    def _extract_with_docling(self, path: str) -> tuple:
+        converter = self._get_docling()
+        if converter:
+            try:
+                result = converter.convert(path)
+                text = result.document.export_to_markdown()
+                metadata = {
+                    "processor": "ibm_docling",
+                    "pages": len(result.document.pages) if hasattr(result.document, "pages") else 0,
+                }
+                return text, metadata
+            except Exception as e:
+                print(f"[Docling] Error processing {path}: {e}")
+
+        ext = os.path.splitext(path)[1].lower()
+        if ext == ".pdf":
+            return self._extract_pdf(path)
+        elif ext in (".docx", ".doc"):
+            return self._extract_docx(path)
+        return self._extract_text(path)
 
     def ingest(self, file_path: str, source: Optional[KnowledgeSource] = None) -> dict:
         abs_path = validate_path(file_path)

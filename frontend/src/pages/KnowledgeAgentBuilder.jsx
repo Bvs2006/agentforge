@@ -73,37 +73,31 @@ export default function KnowledgeAgentBuilder() {
     if (!name.trim()) return
     setCreating(true)
     try {
+      const urlSources = selectedSources.filter(s => s.url || s.path)
+      const fileSources = selectedSources.filter(s => s.file)
+
       const payload = {
         name: name.trim(),
         description: description.trim(),
         memory_enabled: true,
-        sources: selectedSources.map(s => ({
+        sources: urlSources.map(s => ({
           type: s.type,
           name: s.name,
           url: s.url || undefined,
           path: s.path || undefined,
         })),
       }
+
       const res = await knowledgeAPI.createAgent(payload)
       const agent = res.data
-      setProgress({ current: 0, total: selectedSources.length, agentId: agent.id })
+      setProgress({ current: 0, total: fileSources.length, agentId: agent.id })
 
-      for (let i = 0; i < selectedSources.length; i++) {
-        const src = selectedSources[i]
+      for (let i = 0; i < fileSources.length; i++) {
+        const src = fileSources[i]
         setProgress(p => ({ ...p, current: i + 1, message: `Ingesting ${src.name}...` }))
-        if (src.file) {
-          const formData = new FormData()
-          formData.append('file', src.file)
-          await knowledgeAPI.uploadSourceFile(agent.id, formData)
-        } else if (src.url) {
-          const sourceData = { type: src.type, name: src.name, url: src.url }
-          const srcRes = await knowledgeAPI.addSource(agent.id, sourceData)
-          await knowledgeAPI.ingestSource(agent.id, srcRes.data.id)
-        } else if (src.path) {
-          const sourceData = { type: src.type, name: src.name, path: src.path }
-          const srcRes = await knowledgeAPI.addSource(agent.id, sourceData)
-          await knowledgeAPI.ingestSource(agent.id, srcRes.data.id)
-        }
+        const formData = new FormData()
+        formData.append('file', src.file)
+        await knowledgeAPI.uploadSourceFile(agent.id, formData)
       }
 
       setCreatedAgent(agent)

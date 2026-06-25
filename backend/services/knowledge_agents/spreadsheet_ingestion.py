@@ -26,14 +26,20 @@ class SpreadsheetIngestion:
         ext = os.path.splitext(abs_path)[1].lower()
 
         if ext == ".csv":
-            result = self._ingest_csv(abs_path)
+            text, metadata = self._ingest_csv(abs_path)
         elif ext in (".xlsx", ".xls"):
-            result = self._ingest_excel(abs_path)
+            text, metadata = self._ingest_excel(abs_path)
         else:
             raise ValueError(f"Unsupported spreadsheet format: {ext}")
 
-        result["metadata"]["source_type"] = SourceType.SPREADSHEET.value
-        result["source_type"] = SourceType.SPREADSHEET
+        result = {
+            "text": text,
+            "metadata": {
+                **metadata,
+                "source_type": SourceType.SPREADSHEET.value,
+            },
+            "source_type": SourceType.SPREADSHEET,
+        }
 
         if source:
             source.metadata.update(result["metadata"])

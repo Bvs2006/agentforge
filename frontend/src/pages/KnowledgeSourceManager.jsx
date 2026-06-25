@@ -89,7 +89,7 @@ export default function KnowledgeSourceManager() {
   return (
     <div className="min-h-screen bg-[#0f0f11] text-white p-6">
       <div className="max-w-4xl mx-auto">
-        <button onClick={() => navigate(`/knowledge/${agentId}`)} className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white mb-4 transition">
+        <button onClick={() => navigate(`/app/knowledge/${agentId}`)} className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white mb-4 transition">
           <ArrowLeft size={16} />
           Back to {agent?.name || 'Agent'}
         </button>

@@ -117,7 +117,7 @@ export default function KnowledgeStatusDashboard() {
                   <div
                     key={agent.id}
                     className="flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-950/60 p-3 cursor-pointer hover:border-zinc-600 transition"
-                    onClick={() => navigate(`/knowledge/${agent.id}`)}
+                    onClick={() => navigate(`/app/knowledge/${agent.id}`)}
                   >
                     <Bot size={16} className="text-violet-400" />
                     <div className="flex-1 min-w-0">

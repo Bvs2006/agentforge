@@ -111,7 +111,7 @@ export default function KnowledgeWorkspace() {
               <div
                 key={agent.id}
                 className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-5 hover:border-violet-500/40 transition group cursor-pointer"
-                onClick={() => navigate(`/knowledge/${agent.id}`)}
+                onClick={() => navigate(`/app/knowledge/${agent.id}`)}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2.5">

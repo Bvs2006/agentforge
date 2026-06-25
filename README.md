@@ -12,6 +12,16 @@ AgentForge is a no-code AI automation workspace for building, saving, and runnin
 - Store saved agents, task history, and user context.
 - Run in development with mock planners and mock MCP execution when external services are not configured.
 
+### Knowledge Agents
+
+Knowledge Agents extend the platform with a full RAG (Retrieval-Augmented Generation) pipeline. They ingest data from **documents, spreadsheets, websites, git repositories, and local folders**, chunk and embed the content into **ChromaDB**, and answer natural language questions based on the retrieved knowledge.
+
+The answering pipeline tries **OpenRouter** (configurable model) first, falls back to **IBM Granite**, then to direct context extraction.
+
+### OpenRouter Integration
+
+AgentForge integrates with [OpenRouter.ai](https://openrouter.ai) to provide access to a wide variety of LLMs through a unified API. The default free model is `gryphe/mythomax-l2-13b`, configurable via the `OPENROUTER_MODEL` environment variable.
+
 ## Architecture
 
 ```text
@@ -84,6 +94,8 @@ IBM_PROJECT_ID=your_project_id
 IBM_WATSONX_URL=https://us-south.ml.cloud.ibm.com
 SECRET_KEY=change_me
 REDIS_URL=redis://localhost:6379
+OPENROUTER_API_KEY=your_openrouter_key
+OPENROUTER_MODEL=gryphe/mythomax-l2-13b
 ```
 
 MCP integrations can require their own credentials:
@@ -139,6 +151,11 @@ Saved agents are stored through the backend agent API and appear in the Agent Bu
 | `GET` | `/api/v1/mcp/servers/{id}/tools` | List tools for a server |
 | `POST` | `/api/v1/mcp/execute` | Execute an MCP tool |
 | `GET` | `/api/v1/status` | Check platform status |
+| `POST` | `/knowledge/agents` | Create a Knowledge Agent |
+| `GET` | `/knowledge/agents` | List Knowledge Agents |
+| `POST` | `/knowledge/agents/{id}/chat` | Ask a question via RAG |
+| `POST` | `/knowledge/agents/{id}/upload` | Upload a file for ingestion |
+| `GET` | `/knowledge/agents/{id}/search` | Raw vector search |
 
 ## Project Structure
 
@@ -150,12 +167,25 @@ agentforge/
       auth.py
       api_gateway.py
       agent_service.py
+      knowledge_agents.py
     services/
       granite.py
       langflow_service.py
       mcp_manager.py
       docling_service.py
       context_forge.py
+      openrouter.py
+      knowledge_agents/
+        knowledge_agent_service.py
+        document_ingestion.py
+        spreadsheet_ingestion.py
+        web_ingestion.py
+        repository_ingestion.py
+        chunking.py
+        embeddings.py
+        vector_store.py
+        retrieval.py
+        security.py
     models/
       schemas.py
     utils/

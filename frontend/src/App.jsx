@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useStore } from './hooks/useStore'
 import Layout from './components/Layout'
 import Login from './pages/Login'
-import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Wizard from './pages/Wizard'
 import Agents from './pages/Agents'
@@ -19,8 +18,8 @@ import KnowledgeStatusDashboard from './pages/KnowledgeStatusDashboard'
 import Landing from './pages/Landing'
 
 function PrivateRoute({ children }) {
-  const token = useStore(s => s.token)
-  return token ? children : <Navigate to="/login" replace />
+  const username = useStore(s => s.username)
+  return username ? children : <Navigate to="/login" replace />
 }
 
 export default function App() {
@@ -29,7 +28,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/app" element={<PrivateRoute><Layout /></PrivateRoute>}>
           <Route index element={<Navigate to="/app/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />

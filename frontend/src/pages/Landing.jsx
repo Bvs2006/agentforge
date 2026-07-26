@@ -60,8 +60,7 @@ export default function Landing() {
             <span className="font-bold text-white">AgentForge</span>
           </Link>
           <div className="flex items-center gap-2">
-            <Link to="/login" className="text-sm text-zinc-400 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-white/[0.06]">Sign In</Link>
-            <Link to="/register" className="btn-primary text-sm px-5 py-2">Get Started</Link>
+            <Link to="/login" className="btn-primary text-sm px-5 py-2">Enter</Link>
           </div>
         </div>
       </header>
@@ -89,11 +88,11 @@ export default function Landing() {
         </p>
 
         <div className="flex items-center justify-center gap-4">
-          <Link to="/register" className="btn-primary px-8 py-3 text-base flex items-center gap-2 group/btn">
+          <Link to="/login" className="btn-primary px-8 py-3 text-base flex items-center gap-2 group/btn">
             Start Building <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
           </Link>
           <Link to="/login" className="btn-secondary px-8 py-3 text-base hover:bg-white/[0.08] transition-colors">
-            Sign In
+            Enter
           </Link>
         </div>
       </section>
@@ -130,9 +129,9 @@ export default function Landing() {
         <div className="absolute inset-0 bg-gradient-to-r from-violet-500/[0.04] via-emerald-500/[0.04] to-violet-500/[0.04]" />
         <div className="relative max-w-6xl mx-auto px-6 py-20 text-center">
           <h2 className="text-2xl font-bold mb-4">Ready to build your first agent?</h2>
-          <p className="text-zinc-400 mb-8 max-w-lg mx-auto">Create an account and start building in minutes. No credit card required.</p>
-          <Link to="/register" className="btn-primary px-8 py-3 text-base inline-flex items-center gap-2 group/btn">
-            Get Started Free <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
+          <p className="text-zinc-400 mb-8 max-w-lg mx-auto">Pick a username and start building agents in minutes.</p>
+          <Link to="/login" className="btn-primary px-8 py-3 text-base inline-flex items-center gap-2 group/btn">
+            Get Started <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
           </Link>
         </div>
       </section>

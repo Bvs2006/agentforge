@@ -25,6 +25,9 @@ class Settings(BaseSettings):
     langflow_url: str = "http://localhost:7860"
     langflow_api_key: str = ""
 
+    # Frontend (CORS & SPA proxy)
+    frontend_url: str = "http://localhost:3000"
+
     # App
     app_env: str = "development"
     app_secret: str = "dev-secret"

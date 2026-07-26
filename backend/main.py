@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from routers import api_gateway, auth, agent_service, knowledge_agents
 import uvicorn
+from utils.config import settings
 
 app = FastAPI(
     title="AgentForge API",
@@ -11,9 +12,13 @@ app = FastAPI(
     version="1.0.0"
 )
 
+allowed_origins = [settings.frontend_url]
+if settings.frontend_url == "http://localhost:3000":
+    allowed_origins.append("http://localhost:5173")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: agentforge-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: FRONTEND_URL
+        sync: false
+      - key: IBM_API_KEY
+        sync: false
+      - key: IBM_PROJECT_ID
+        sync: false
+      - key: IBM_WATSONX_URL
+        sync: false
+      - key: APP_SECRET
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_MODEL
+        sync: false
+      - key: LANGFLOW_URL
+        sync: false
+      - key: LANGFLOW_API_KEY
+        sync: false
+    healthCheckPath: /health

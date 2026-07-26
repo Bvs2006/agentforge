@@ -1,0 +1,12 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://agentforge-backend.onrender.com/api/v1/$1" },
+    { "source": "/auth/(.*)", "destination": "https://agentforge-backend.onrender.com/auth/$1" },
+    { "source": "/agent/(.*)", "destination": "https://agentforge-backend.onrender.com/agent/$1" },
+    { "source": "/knowledge/(.*)", "destination": "https://agentforge-backend.onrender.com/knowledge/$1" },
+    { "source": "/(.*)", "destination": "/$1" }
+  ]
+}

@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, UploadFile, File
 from models.schemas import TaskRequest, AgentConfig, MCPToolCall
 from routers.auth import get_current_user
 from services import granite, langflow_service, mcp_manager, context_forge, docling_service
+from services.granite import plan_agent_task_async
 import uuid
 from datetime import datetime
 from typing import Optional
@@ -52,7 +53,7 @@ async def run_agent_task(request: TaskRequest, current_user: dict = Depends(get_
                 "source": "custom_agent"
             }
         else:
-            plan = granite.plan_agent_task(request.task)
+            plan = await plan_agent_task_async(request.task)
 
         # Step 4: Execute required MCP tools
         tool_results = {}

@@ -1,5 +1,7 @@
+from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from routers import api_gateway, auth, agent_service, knowledge_agents
 import uvicorn
 
@@ -22,13 +24,13 @@ app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 app.include_router(agent_service.router, prefix="/agent", tags=["Agent Service"])
 app.include_router(knowledge_agents.router, prefix="/knowledge", tags=["Knowledge Agents"])
 
-@app.get("/")
-async def root():
-    return {"message": "AgentForge API is running", "version": "1.0.0"}
-
 @app.get("/health")
 async def health():
     return {"status": "healthy"}
+
+STATIC_DIR = Path(__file__).parent / "static"
+if STATIC_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

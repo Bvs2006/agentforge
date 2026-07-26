@@ -48,21 +48,11 @@ async def get_context(current_user: dict = Depends(get_current_user)):
 @router.get("/status")
 async def platform_status():
     """Get platform component status."""
-    langflow_up = False
     redis_up = context_forge.REDIS_AVAILABLE
-
-    try:
-        import httpx
-        async with httpx.AsyncClient(timeout=2) as client:
-            r = await client.get("http://localhost:7860/health")
-            langflow_up = r.status_code == 200
-    except Exception:
-        pass
 
     return {
         "api": "online",
         "redis": "online" if redis_up else "offline (using in-memory)",
-        "langflow": "online" if langflow_up else "offline (simulation mode)",
-        "granite": "configured" if True else "not configured",
+        "engine": "openrouter",
         "docling": "available" if True else "not installed"
     }

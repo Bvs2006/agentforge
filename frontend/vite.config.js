@@ -9,6 +9,7 @@ export default defineConfig({
       '/api': 'http://localhost:8000',
       '/auth': 'http://localhost:8000',
       '/agent': 'http://localhost:8000',
+      '/knowledge': 'http://localhost:8000',
     }
   }
 })

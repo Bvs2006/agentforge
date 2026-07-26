@@ -133,23 +133,39 @@ def _mock_plan(task: str) -> dict:
     }
 
 
-def plan_agent_task(task: str) -> dict:
-    """Main entry: plan a task using Granite or mock planner."""
-    model = _get_model()
+async def plan_agent_task_async(task: str) -> dict:
+    """Plan a task using OpenRouter, then IBM Granite, then mock."""
+    try:
+        from services.openrouter import generate_text
+        prompt = PLANNING_PROMPT.format(task=task)
+        response = await generate_text(prompt)
+        if response:
+            clean = re.sub(r"```json|```", "", response).strip()
+            plan = json.loads(clean)
+            plan["source"] = "openrouter"
+            return plan
+    except Exception as e:
+        print(f"[OpenRouter] Planning error: {e}")
 
+    model = _get_model()
     if model:
         try:
             prompt = PLANNING_PROMPT.format(task=task)
             response = model.generate_text(prompt=prompt)
-            # Clean and parse JSON
             clean = re.sub(r"```json|```", "", response).strip()
             plan = json.loads(clean)
             plan["source"] = "ibm_granite"
             return plan
         except Exception as e:
-            print(f"[Granite] Generation error: {e}, falling back to mock")
+            print(f"[Granite] Generation error: {e}")
 
     return _mock_plan(task)
+
+
+def plan_agent_task(task: str) -> dict:
+    """Synchronous wrapper for backward compatibility."""
+    import asyncio
+    return asyncio.run(plan_agent_task_async(task))
 
 
 def get_templates() -> list:

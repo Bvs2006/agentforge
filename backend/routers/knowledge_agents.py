@@ -109,14 +109,13 @@ async def upload_source_file(
     file: UploadFile = File(...),
     current_user: dict = Depends(get_current_user),
 ):
-    import aiofiles
     upload_dir = "/tmp/agentforge/uploads"
     os.makedirs(upload_dir, exist_ok=True)
     safe_name = f"{uuid.uuid4().hex}_{file.filename}"
     file_path = os.path.join(upload_dir, safe_name)
     content = await file.read()
-    async with aiofiles.open(file_path, "wb") as f:
-        await f.write(content)
+    with open(file_path, "wb") as f:
+        f.write(content)
 
     ext = os.path.splitext(file.filename)[1].lower()
     if ext in (".csv", ".xlsx", ".xls"):
@@ -145,7 +144,7 @@ async def chat_with_agent(
     request: ChatRequest,
     current_user: dict = Depends(get_current_user),
 ):
-    response = knowledge_agent_service.chat(agent_id, request)
+    response = await knowledge_agent_service.chat(agent_id, request)
     return response
 
 

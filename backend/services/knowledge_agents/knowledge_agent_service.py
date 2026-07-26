@@ -214,7 +214,7 @@ class KnowledgeAgentService:
                 duration_ms=duration,
             )
 
-    def chat(self, agent_id: str, request: ChatRequest) -> ChatResponse:
+    async def chat(self, agent_id: str, request: ChatRequest) -> ChatResponse:
         agent = self._agents_store.get(agent_id)
         if not agent:
             return ChatResponse(answer="Agent not found", task_id="")
@@ -224,7 +224,7 @@ class KnowledgeAgentService:
         results = self.retrieval.retrieve(agent, request.question, top_k=request.top_k)
         context = self.retrieval.format_context(results)
         prompt = self.retrieval.build_rag_prompt(request.question, context)
-        answer = self._generate_answer(prompt)
+        answer = await self._generate_answer(prompt)
         sources = [
             {
                 "content": r.get("content", "")[:200],
@@ -236,7 +236,15 @@ class KnowledgeAgentService:
         ]
         return ChatResponse(answer=answer, sources=sources, task_id=task_id)
 
-    def _generate_answer(self, prompt: str) -> str:
+    async def _generate_answer(self, prompt: str) -> str:
+        try:
+            from services.openrouter import generate_text
+            or_response = await generate_text(prompt)
+            if or_response:
+                return or_response
+        except Exception:
+            pass
+
         try:
             from services.granite import _get_model
             model = _get_model()

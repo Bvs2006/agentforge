@@ -2,6 +2,10 @@ from pydantic_settings import BaseSettings
 from typing import Optional
 
 class Settings(BaseSettings):
+    # OpenRouter
+    openrouter_api_key: str = ""
+    openrouter_model: str = "gryphe/mythomax-l2-13b"
+
     # IBM watsonx.ai
     ibm_api_key: str = "demo_key"
     ibm_project_id: str = "demo_project"

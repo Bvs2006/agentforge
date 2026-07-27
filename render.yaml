@@ -9,7 +9,6 @@ services:
         value: production
       - key: FRONTEND_URL
         value: https://agentforge-five-eta.vercel.app
-        sync: false
       - key: IBM_API_KEY
         sync: false
       - key: IBM_PROJECT_ID

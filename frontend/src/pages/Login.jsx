@@ -7,7 +7,7 @@ export default function Login() {
   const [username, setUsername] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const { setUsername } = useStore()
+  const { setUsername: storeSetUsername } = useStore()
   const navigate = useNavigate()
 
   const handle = async e => {
@@ -21,7 +21,7 @@ export default function Login() {
         body: JSON.stringify({ username: username.trim() })
       })
       if (!res.ok) throw new Error('Failed to set username')
-      setUsername(username.trim())
+      storeSetUsername(username.trim())
       navigate('/app/dashboard')
     } catch (err) {
       setError(err.message || 'Something went wrong')

@@ -15,6 +15,7 @@ app = FastAPI(
 allowed_origins = [settings.frontend_url]
 if settings.frontend_url == "http://localhost:3000":
     allowed_origins.append("http://localhost:5173")
+allowed_origins.append("https://agentforge-five-eta.vercel.app")
 
 app.add_middleware(
     CORSMiddleware,

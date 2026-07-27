@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
+from models.schemas import UserRegister, UserLogin, Token, UserOut
 from utils.auth_utils import (
     register_user, get_user_by_email, verify_password,
     create_token, decode_token

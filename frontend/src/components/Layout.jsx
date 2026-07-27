@@ -1,7 +1,5 @@
 import { Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useStore } from '../hooks/useStore'
-import { useEffect } from 'react'
-import { authAPI } from '../services/api'
 import {
   LayoutDashboard, Bot, Brain, Sparkles,
   Wand2, LogOut, ChevronRight,
@@ -26,16 +24,10 @@ const sections = [
 ]
 
 export default function Layout() {
-  const { user, setUser, logout, token } = useStore()
+  const { username, setUsername, logout } = useStore()
   const navigate = useNavigate()
   const location = useLocation()
   const fullScreen = location.pathname === '/app/run' || location.pathname.startsWith('/app/chat/') || location.pathname.startsWith('/app/knowledge/')
-
-  useEffect(() => {
-    if (!user && token) {
-      authAPI.me().then(r => setUser(r.data)).catch(() => {})
-    }
-  }, [token])
 
   const handleLogout = () => { logout(); navigate('/login') }
 
@@ -93,11 +85,11 @@ export default function Layout() {
         <div className="px-3 pb-4 border-t border-gray-800/60 pt-3">
           <div className="flex items-center gap-3 px-2 py-2">
             <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-violet-400 flex items-center justify-center text-white text-xs font-bold">
-              {user?.username?.[0]?.toUpperCase() || 'U'}
+              {username?.[0]?.toUpperCase() || 'U'}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-medium text-gray-200 truncate">{user?.username || 'User'}</p>
-              <p className="text-xs text-gray-500 truncate">{user?.email || ''}</p>
+<p className="text-xs font-medium text-gray-200 truncate">{username || 'User'}</p>
+              
             </div>
             <button onClick={handleLogout} className="text-gray-500 hover:text-red-400 transition-colors">
               <LogOut size={14} />

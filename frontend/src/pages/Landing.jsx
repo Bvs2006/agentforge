@@ -5,11 +5,11 @@ import { useEffect } from 'react'
 
 export default function Landing() {
   const navigate = useNavigate()
-  const token = useStore(s => s.token)
+  const username = useStore(s => s.username)
 
   useEffect(() => {
-    if (token) navigate('/app/dashboard', { replace: true })
-  }, [token])
+    if (username) navigate('/app/dashboard', { replace: true })
+  }, [username])
 
   return (
     <div className="min-h-screen bg-[#0f0f11] text-white relative">

@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useStore } from './hooks/useStore'
 import Layout from './components/Layout'
-import Login from './pages/Login'
+import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
 import Wizard from './pages/Wizard'
 import Agents from './pages/Agents'
@@ -17,18 +17,12 @@ import KnowledgeSearchPanel from './pages/KnowledgeSearchPanel'
 import KnowledgeStatusDashboard from './pages/KnowledgeStatusDashboard'
 import Landing from './pages/Landing'
 
-function PrivateRoute({ children }) {
-  const username = useStore(s => s.username)
-  return username ? children : <Navigate to="/login" replace />
-}
-
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/app" element={<PrivateRoute><Layout /></PrivateRoute>}>
+        <Route path="/app" element={<Layout />}>
           <Route index element={<Navigate to="/app/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="run" element={<Wizard />} />

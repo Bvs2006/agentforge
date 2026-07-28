@@ -2,11 +2,6 @@ import axios from 'axios'
 
 const api = axios.create({ baseURL: '' })
 
-// Auth (username only)
-export const authAPI = {
-  setUsername: (data) => api.post('/auth/username', data),
-}
-
 // Agent
 export const agentAPI = {
   runTask:      (data)        => api.post('/agent/run', data),

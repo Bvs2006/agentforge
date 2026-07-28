@@ -1,8 +1,8 @@
-import { Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, NavLink, useLocation } from 'react-router-dom'
 import { useStore } from '../hooks/useStore'
 import {
   LayoutDashboard, Bot, Brain, Sparkles,
-  Wand2, LogOut, ChevronRight,
+  Wand2, ChevronRight,
 } from 'lucide-react'
 import Notifications from './Notifications'
 
@@ -24,12 +24,9 @@ const sections = [
 ]
 
 export default function Layout() {
-  const { username, setUsername, logout } = useStore()
-  const navigate = useNavigate()
+  const { username } = useStore()
   const location = useLocation()
   const fullScreen = location.pathname === '/app/run' || location.pathname.startsWith('/app/chat/') || location.pathname.startsWith('/app/knowledge/')
-
-  const handleLogout = () => { logout(); navigate('/login') }
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -88,12 +85,8 @@ export default function Layout() {
               {username?.[0]?.toUpperCase() || 'U'}
             </div>
             <div className="flex-1 min-w-0">
-<p className="text-xs font-medium text-gray-200 truncate">{username || 'User'}</p>
-              
+              <p className="text-xs font-medium text-gray-200 truncate">{username || 'User'}</p>
             </div>
-            <button onClick={handleLogout} className="text-gray-500 hover:text-red-400 transition-colors">
-              <LogOut size={14} />
-            </button>
           </div>
         </div>
       </aside>

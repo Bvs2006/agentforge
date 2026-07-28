@@ -1,12 +1,6 @@
 import { create } from 'zustand'
 
 export const useStore = create((set, get) => ({
-  // Auth
-  username: localStorage.getItem('agentforge_user') || null,
-  setUsername: (name) => {
-    localStorage.setItem('agentforge_user', name)
-    set({ username: name })
-  },
 
   // Navigation
   currentStep: 0,         // 0-5 wizard steps

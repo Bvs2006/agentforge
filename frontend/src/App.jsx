@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useStore } from './hooks/useStore'
 import Layout from './components/Layout'
 import Landing from './pages/Landing'

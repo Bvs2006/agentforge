@@ -15,7 +15,6 @@ import KnowledgeAgentChat from './pages/KnowledgeAgentChat'
 import KnowledgeSourceManager from './pages/KnowledgeSourceManager'
 import KnowledgeSearchPanel from './pages/KnowledgeSearchPanel'
 import KnowledgeStatusDashboard from './pages/KnowledgeStatusDashboard'
-import Landing from './pages/Landing'
 
 export default function App() {
   return (
